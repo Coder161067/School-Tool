@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>School Manager</title>
+<title>Tasks</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -10,7 +10,7 @@
 
 <header>
 
-<div class="title">SCHOOL_MANAGER</div>
+<div class="title">TASK_MANAGER</div>
 
 <nav>
 <a href="index.html">DASHBOARD</a>
@@ -26,37 +26,27 @@
 
 </header>
 
-
 <main>
 
-<section class="dashboard-grid">
+<section class="add-task">
 
-<div class="panel">
-<h3>ACTIVE TASKS</h3>
-<div id="taskCount">0</div>
-</div>
+<input id="taskInput" placeholder="enter task">
+<select id="subject">
+<option>Math</option>
+<option>Science</option>
+<option>English</option>
+<option>History</option>
+</select>
 
-<div class="panel">
-<h3>COMPLETED</h3>
-<div id="completedCount">0</div>
-</div>
-
-<div class="panel">
-<h3>UPCOMING DEADLINES</h3>
-<div>3</div>
-</div>
+<button id="addTask">ADD</button>
 
 </section>
 
-<section class="recent">
-
-<h3>RECENT TASKS</h3>
-<div id="recentTasks"></div>
-
-</section>
+<section id="taskList" class="tasks"></section>
 
 </main>
 
 <script src="script.js"></script>
+
 </body>
 </html>
