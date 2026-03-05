@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>School Manager</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+<div class="title">SCHOOL_MANAGER</div>
+
+<nav>
+<a href="index.html">DASHBOARD</a>
+<a href="tasks.html">TASKS</a>
+<a href="calendar.html">CALENDAR</a>
+<a href="stats.html">STATS</a>
+</nav>
+
+<div class="controls">
+<button id="themeToggle">THEME</button>
+<div id="clock"></div>
+</div>
+
+</header>
+
+
+<main>
+
+<section class="dashboard-grid">
+
+<div class="panel">
+<h3>ACTIVE TASKS</h3>
+<div id="taskCount">0</div>
+</div>
+
+<div class="panel">
+<h3>COMPLETED</h3>
+<div id="completedCount">0</div>
+</div>
+
+<div class="panel">
+<h3>UPCOMING DEADLINES</h3>
+<div>3</div>
+</div>
+
+</section>
+
+<section class="recent">
+
+<h3>RECENT TASKS</h3>
+<div id="recentTasks"></div>
+
+</section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
