@@ -32,6 +32,7 @@ if (toggle) {
 
 // TASK STORAGE
 let tasks=JSON.parse(localStorage.tasks||"[]")
+let subjects = JSON.parse(localStorage.subjects || '["Math","Science","English","History","General"]')
 
 function save(){
 localStorage.tasks=JSON.stringify(tasks)
@@ -74,6 +75,7 @@ tasks.push(task)
 save()
 
 renderTasks()
+renderStats()
 
 // Auto-open edit modal for the newly created task
 const newTaskIndex=tasks.length-1
@@ -158,6 +160,7 @@ list.appendChild(task)
 }
 
 renderTasks()
+renderStats()
 
 // EDIT MODAL FUNCTIONALITY
 console.log('Initializing edit modal functionality')
@@ -255,6 +258,7 @@ task.startDate=startDateTime.toISOString()
 console.log('Updated task:', task)
 save()
 renderTasks()
+renderStats()
 closeEditModal()
 }
 }
@@ -293,6 +297,7 @@ console.log('Task has empty name, deleting immediately')
 tasks.splice(currentDeleteIndex,1)
 save()
 renderTasks()
+renderStats()
 currentDeleteIndex=-1
 return
 }
@@ -335,6 +340,7 @@ console.log('Confirmation matches, deleting task')
 tasks.splice(currentDeleteIndex,1)
 save()
 renderTasks()
+renderStats()
 closeDeleteModal()
 }else{
 console.log('Confirmation does not match, showing alert')
@@ -409,10 +415,10 @@ if (backToMain) {
 }
 
 // SUBJECT MANAGEMENT
-let subjects = JSON.parse(localStorage.subjects || '["Math","Science","English","History","General"]')
 
 function saveSubjects(){
   localStorage.subjects = JSON.stringify(subjects)
+  renderStats()
 }
 
 function renderSubjects(){
@@ -442,6 +448,40 @@ function renderSubjects(){
       editSubject.appendChild(option)
     })
   }
+  
+  // Update stats page if on stats page
+  renderStats()
+}
+
+function renderStats(){
+  const statsGrid = document.getElementById("statsGrid")
+  if(!statsGrid) return
+  
+  statsGrid.innerHTML = ""
+  
+  // Count tasks per subject
+  const taskCounts = {}
+  subjects.forEach(subject => {
+    taskCounts[subject] = 0
+  })
+  
+  tasks.forEach(task => {
+    if(taskCounts.hasOwnProperty(task.subject)){
+      taskCounts[task.subject]++
+    }
+  })
+  
+  // Create stat panels for each subject
+  subjects.forEach(subject => {
+    const count = taskCounts[subject]
+    const panel = document.createElement("div")
+    panel.className = "panel"
+    panel.innerHTML = `
+      <h3>${subject.toUpperCase()} TASKS</h3>
+      <div>${count}</div>
+    `
+    statsGrid.appendChild(panel)
+  })
 }
 
 function addSubject(){
@@ -480,3 +520,6 @@ if(newSubjectInput){
 
 // Initialize subjects on page load
 renderSubjects()
+
+// Explicitly render stats for stats page
+renderStats()
