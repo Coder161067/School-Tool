@@ -181,7 +181,7 @@ document.getElementById("editName").value=task.text
 document.getElementById("editSubject").value=task.subject
 document.getElementById("editDescription").value=task.description||""
 
-// Set default deadline to current day if task doesn't have one
+// Set default due date to current day if task doesn't have one
 let deadlineDate=""
 let deadlineTime=""
 
