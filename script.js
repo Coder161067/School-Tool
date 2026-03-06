@@ -1,11 +1,18 @@
-// CLOCK
-const clock=document.getElementById("clock")
+// =====================
+// LIVE CLOCK (non-blocking)
+// =====================
+document.addEventListener("DOMContentLoaded", () => {
+  const clock = document.getElementById("clock");
+  if (!clock) return;
 
-if(clock){
-setInterval(()=>{
-clock.textContent=new Date().toLocaleTimeString()
-},1000)
-}
+  // Initialize clock immediately
+  clock.textContent = new Date().toLocaleTimeString();
+
+  // Update every second
+  setInterval(() => {
+    clock.textContent = new Date().toLocaleTimeString();
+  }, 1000);
+});
 
 
 // THEME TOGGLE
