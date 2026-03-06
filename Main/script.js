@@ -236,9 +236,23 @@ console.log('Form submitted for task index:', currentEditIndex)
 
 if(currentEditIndex===-1) return
 
+// Validate task name and subject
+const taskName = document.getElementById("editName").value.trim()
+const taskSubject = document.getElementById("editSubject").value
+
+if(!taskName){
+showNotification('Task name is required', '⚠')
+return
+}
+
+if(!taskSubject){
+showNotification('Subject is required', '⚠')
+return
+}
+
 const task=tasks[currentEditIndex]
-task.text=document.getElementById("editName").value
-task.subject=document.getElementById("editSubject").value
+task.text=taskName
+task.subject=taskSubject
 task.description=document.getElementById("editDescription").value
 
 // Combine date and time inputs
@@ -344,7 +358,7 @@ renderStats()
 closeDeleteModal()
 }else{
 console.log('Confirmation does not match, showing alert')
-alert('Task name does not match. Please type the exact task name to confirm deletion.')
+showNotification('Task name does not match. Please type the exact task name to confirm deletion.', '⚠')
 }
 }
 }
@@ -363,6 +377,47 @@ if(event.target===settingsMenu){
 console.log('Clicked outside settings menu, closing')
 closeSettingsMenu()
 }
+}
+
+// NOTIFICATION FUNCTION
+function showNotification(message, icon = "ℹ") {
+  // Create notification element
+  const notification = document.createElement("div")
+  notification.className = "notification"
+  notification.innerHTML = `
+    <div class="notification-content">
+      <span class="notification-icon">${icon}</span>
+      <span class="notification-message">${message}</span>
+    </div>
+    <button class="notification-close">×</button>
+  `
+  
+  // Add to body
+  document.body.appendChild(notification)
+  
+  // Show notification
+  setTimeout(() => {
+    notification.classList.add("show")
+  }, 10)
+  
+  // Close button handler
+  const closeBtn = notification.querySelector(".notification-close")
+  closeBtn.onclick = () => {
+    notification.classList.remove("show")
+    setTimeout(() => {
+      notification.remove()
+    }, 300)
+  }
+  
+  // Auto close after 5 seconds
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.classList.remove("show")
+      setTimeout(() => {
+        if (notification.parentNode) notification.remove()
+      }, 300)
+    }
+  }, 5000)
 }
 
 // SETTINGS POPOUT MENU
@@ -490,7 +545,7 @@ function addSubject(){
   
   if(!subject) return
   if(subjects.includes(subject)){
-    alert('Subject already exists')
+    showNotification('Subject already exists', '⚠')
     return
   }
   
@@ -523,3 +578,30 @@ renderSubjects()
 
 // Explicitly render stats for stats page
 renderStats()
+
+// DASHBOARD FUNCTIONALITY
+function renderDashboard(){
+  const taskCountEl = document.getElementById("taskCount")
+  const completedCountEl = document.getElementById("completedCount")
+  
+  if(!taskCountEl && !completedCountEl) return
+  
+  // Count active and completed tasks
+  let activeCount = 0
+  let completedCount = 0
+  
+  tasks.forEach(task => {
+    if(task.done) {
+      completedCount++
+    } else {
+      activeCount++
+    }
+  })
+  
+  // Update dashboard counts
+  if(taskCountEl) taskCountEl.textContent = activeCount
+  if(completedCountEl) completedCountEl.textContent = completedCount
+}
+
+// Call renderDashboard on load
+renderDashboard()
