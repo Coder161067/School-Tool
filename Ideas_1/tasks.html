@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tasks</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+<div class="title">TASK_MANAGER</div>
+
+<nav>
+<a href="index.html">DASHBOARD</a>
+<a href="tasks.html" class="active">TASKS</a>
+<a href="calendar.html">CALENDAR</a>
+<a href="stats.html">STATS</a>
+</nav>
+
+<div class="controls">
+<button id="themeToggle">THEME</button>
+<div id="clock"></div>
+</div>
+
+</header>
+
+<main>
+
+<section class="task-filters">
+<button class="filter-btn active" data-filter="all">All Tasks</button>
+<button class="filter-btn" data-filter="active">Active</button>
+<button class="filter-btn" data-filter="completed">Completed</button>
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Search tasks...">
+</div>
+</section>
+
+<section class="add-task">
+<input id="taskInput" placeholder="Enter task description">
+<select id="subject">
+<option>Math</option>
+<option>Science</option>
+<option>English</option>
+<option>History</option>
+</select>
+<select id="priority">
+<option value="low">Low Priority</option>
+<option value="medium" selected>Medium Priority</option>
+<option value="high">High Priority</option>
+</select>
+<button id="addTask">ADD TASK</button>
+</section>
+
+<section class="task-stats">
+<div class="stat-item">
+<span class="stat-label">Total:</span>
+<span id="totalTasks">0</span>
+</div>
+<div class="stat-item">
+<span class="stat-label">Active:</span>
+<span id="activeTasks">0</span>
+</div>
+<div class="stat-item">
+<span class="stat-label">Completed:</span>
+<span id="completedTasks">0</span>
+</div>
+</section>
+
+<section id="taskList" class="tasks"></section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

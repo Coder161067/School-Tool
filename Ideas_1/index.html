@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>School Manager</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+<div class="title">SCHOOL_MANAGER</div>
+
+<nav>
+<a href="index.html" class="active">DASHBOARD</a>
+<a href="tasks.html">TASKS</a>
+<a href="calendar.html">CALENDAR</a>
+<a href="stats.html">STATS</a>
+</nav>
+
+<div class="controls">
+<button id="themeToggle">THEME</button>
+<div id="clock"></div>
+</div>
+
+</header>
+
+
+<main>
+
+<section class="dashboard-grid">
+
+<div class="panel">
+<h3>ACTIVE TASKS</h3>
+<div id="taskCount">0</div>
+<div class="progress-bar">
+<div class="progress-fill" id="activeProgress"></div>
+</div>
+</div>
+
+<div class="panel">
+<h3>COMPLETED</h3>
+<div id="completedCount">0</div>
+<div class="progress-bar">
+<div class="progress-fill" id="completedProgress"></div>
+</div>
+</div>
+
+<div class="panel">
+<h3>UPCOMING DEADLINES</h3>
+<div id="deadlineCount">3</div>
+<div class="deadline-list">
+<div class="deadline-item">
+<span class="deadline-date">Today</span>
+<span class="deadline-subject">Math Assignment</span>
+</div>
+<div class="deadline-item">
+<span class="deadline-date">Tomorrow</span>
+<span class="deadline-subject">Science Project</span>
+</div>
+</div>
+</div>
+
+</section>
+
+<section class="dashboard-grid">
+
+<div class="panel">
+<h3>WEEKLY PROGRESS</h3>
+<div class="week-chart">
+<div class="chart-bar" style="height: 60%" data-day="Mon"></div>
+<div class="chart-bar" style="height: 80%" data-day="Tue"></div>
+<div class="chart-bar" style="height: 45%" data-day="Wed"></div>
+<div class="chart-bar" style="height: 90%" data-day="Thu"></div>
+<div class="chart-bar" style="height: 70%" data-day="Fri"></div>
+</div>
+</div>
+
+<div class="panel">
+<h3>SUBJECT BREAKDOWN</h3>
+<div class="subject-stats">
+<div class="subject-item">
+<span class="subject-color" style="background: var(--blue)"></span>
+<span class="subject-name">Math</span>
+<span class="subject-count">12</span>
+</div>
+<div class="subject-item">
+<span class="subject-color" style="background: var(--green)"></span>
+<span class="subject-name">Science</span>
+<span class="subject-count">8</span>
+</div>
+<div class="subject-item">
+<span class="subject-color" style="background: var(--purple)"></span>
+<span class="subject-name">English</span>
+<span class="subject-count">15</span>
+</div>
+<div class="subject-item">
+<span class="subject-color" style="background: var(--orange)"></span>
+<span class="subject-name">History</span>
+<span class="subject-count">6</span>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h3>QUICK ACTIONS</h3>
+<div class="quick-actions">
+<button class="success" onclick="quickAddTask()">+ Add Task</button>
+<button class="warning" onclick="viewCalendar()">📅 Calendar</button>
+<button class="danger" onclick="clearCompleted()">🗑️ Clear Done</button>
+</div>
+</div>
+
+</section>
+
+<section class="recent">
+
+<h3>RECENT TASKS</h3>
+<div id="recentTasks"></div>
+
+</section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
