@@ -15,6 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// THEME TOGGLE
+const toggle = document.getElementById("themeToggle")
+
+if (localStorage.theme === "dark") {
+  document.body.classList.add("dark")
+}
+
+if (toggle) {
+  toggle.onclick = () => {
+    document.body.classList.toggle("dark")
+    localStorage.theme = document.body.classList.contains("dark") ? "dark" : "light"
+  }
+}
+
+
 // TASK STORAGE
 let tasks=JSON.parse(localStorage.tasks||"[]")
 
@@ -272,6 +287,16 @@ currentDeleteIndex=index
 const task=tasks[index]
 console.log('Task to delete:', task)
 
+// If task has no name, delete immediately without confirmation
+if(!task.text || task.text.trim() === ""){
+console.log('Task has empty name, deleting immediately')
+tasks.splice(currentDeleteIndex,1)
+save()
+renderTasks()
+currentDeleteIndex=-1
+return
+}
+
 const quotedTaskName=`"${task.text}"`
 document.getElementById("deleteTaskName").textContent=quotedTaskName
 document.getElementById("confirmDelete").value=""
@@ -328,4 +353,29 @@ if(event.target===deleteModal){
 console.log('Clicked outside delete modal, closing')
 closeDeleteModal()
 }
+if(event.target===settingsMenu){
+console.log('Clicked outside settings menu, closing')
+closeSettingsMenu()
+}
+}
+
+// SETTINGS POPOUT MENU
+const gearIcon = document.getElementById("gearIcon")
+const settingsMenu = document.getElementById("settingsMenu")
+
+function toggleSettingsMenu() {
+  console.log('Toggling settings menu')
+  settingsMenu.classList.toggle("show")
+}
+
+function closeSettingsMenu() {
+  console.log('Closing settings menu')
+  settingsMenu.classList.remove("show")
+}
+
+if (gearIcon) {
+  gearIcon.onclick = (e) => {
+    e.stopPropagation()
+    toggleSettingsMenu()
+  }
 }
