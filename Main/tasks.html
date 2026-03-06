@@ -68,7 +68,7 @@
 <h2>Edit Task</h2>
 <form id="editForm">
 <label for="editName">Task Name:</label>
-<input type="text" id="editName" required>
+<input type="text" id="editName">
 
 <label for="editSubject">Subject:</label>
 <select id="editSubject">
@@ -106,6 +106,19 @@
 <button type="submit">SAVE CHANGES</button>
 </div>
 </form>
+</div>
+</div>
+
+<!-- Unnamed Task Modal -->
+<div id="unnamedTaskModal" class="modal">
+<div class="modal-content">
+<h2>Unnamed Task</h2>
+<p>This task has no name.</p>
+<p>Would you like to add a name or discard this task?</p>
+<div class="modal-actions">
+<button type="button" id="addNameBtn">ADD NAME</button>
+<button type="button" id="discardTaskBtn">DISCARD TASK</button>
+</div>
 </div>
 </div>
 

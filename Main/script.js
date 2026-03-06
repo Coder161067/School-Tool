@@ -63,7 +63,7 @@ function addTask(){
 // Create a new task with empty name that will be filled in edit modal
 let task={
 text:"",
-subject:"General",
+subject:subjectSelect ? subjectSelect.value : "General",
 done:false,
 description:"",
 deadline:"",
@@ -225,7 +225,16 @@ currentEditIndex=-1
 
 if(cancelEdit){
 console.log('Setting up cancel button handler')
-cancelEdit.onclick=closeEditModal
+cancelEdit.onclick=()=>{
+console.log('Cancel button clicked, checking if task has name')
+const taskName = document.getElementById("editName").value.trim()
+if(!taskName && currentEditIndex !== -1){
+console.log('Task has no name, showing unnamed task modal')
+openUnnamedTaskModal(currentEditIndex)
+}else{
+closeEditModal()
+}
+}
 }
 
 if(editForm){
@@ -241,7 +250,7 @@ const taskName = document.getElementById("editName").value.trim()
 const taskSubject = document.getElementById("editSubject").value
 
 if(!taskName){
-showNotification('Task name is required', '⚠')
+openUnnamedTaskModal(currentEditIndex)
 return
 }
 
@@ -363,15 +372,71 @@ showNotification('Task name does not match. Please type the exact task name to c
 }
 }
 
+// UNNAMED TASK MODAL FUNCTIONALITY
+console.log('Initializing unnamed task modal functionality')
+const unnamedTaskModal = document.getElementById("unnamedTaskModal")
+const addNameBtn = document.getElementById("addNameBtn")
+const discardTaskBtn = document.getElementById("discardTaskBtn")
+let currentUnnamedTaskIndex = -1
+
+function openUnnamedTaskModal(index) {
+  console.log('Opening unnamed task modal for task index:', index)
+  currentUnnamedTaskIndex = index
+  unnamedTaskModal.style.display = "block"
+}
+
+function closeUnnamedTaskModal() {
+  console.log('Closing unnamed task modal')
+  unnamedTaskModal.style.display = "none"
+  currentUnnamedTaskIndex = -1
+}
+
+if (addNameBtn) {
+  addNameBtn.onclick = () => {
+    console.log('Add name button clicked, keeping modal open')
+    closeUnnamedTaskModal()
+    // Focus on the task name input in the edit modal
+    const editNameInput = document.getElementById("editName")
+    if (editNameInput) {
+      editNameInput.focus()
+    }
+  }
+}
+
+if (discardTaskBtn) {
+  discardTaskBtn.onclick = () => {
+    console.log('Discard task button clicked, deleting task at index:', currentUnnamedTaskIndex)
+    if (currentUnnamedTaskIndex !== -1) {
+      tasks.splice(currentUnnamedTaskIndex, 1)
+      save()
+      renderTasks()
+      renderStats()
+      closeEditModal()
+      closeUnnamedTaskModal()
+      showNotification('Task discarded', '🗑️')
+    }
+  }
+}
+
 // Close modal when clicking outside
 window.onclick=(event)=>{
 if(event.target===editModal){
-console.log('Clicked outside modal, closing')
+console.log('Clicked outside modal, checking if task has name')
+const taskName = document.getElementById("editName").value.trim()
+if(!taskName && currentEditIndex !== -1){
+console.log('Task has no name, showing unnamed task modal')
+openUnnamedTaskModal(currentEditIndex)
+}else{
 closeEditModal()
+}
 }
 if(event.target===deleteModal){
 console.log('Clicked outside delete modal, closing')
 closeDeleteModal()
+}
+if(event.target===unnamedTaskModal){
+console.log('Clicked outside unnamed task modal, closing')
+closeUnnamedTaskModal()
 }
 if(event.target===settingsMenu){
 console.log('Clicked outside settings menu, closing')
