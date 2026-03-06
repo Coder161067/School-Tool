@@ -70,7 +70,10 @@ if(!text) return
 let task={
 text:text,
 subject:subjectSelect.value,
-done:false
+done:false,
+description:"",
+deadline:"",
+startDate:new Date().toISOString()
 }
 
 tasks.push(task)
@@ -78,6 +81,11 @@ tasks.push(task)
 save()
 
 renderTasks()
+
+// Auto-open edit modal for the newly created task
+const newTaskIndex=tasks.length-1
+console.log('Auto-opening edit modal for new task at index:', newTaskIndex)
+openEditModal(newTaskIndex)
 
 input.value=""
 }
@@ -127,6 +135,15 @@ renderTasks()
 }
 
 
+let edit=document.createElement("button")
+edit.className="edit-btn"
+edit.textContent="EDIT"
+
+edit.onclick=()=>{
+console.log('Edit button clicked for task index:', i)
+openEditModal(i)
+}
+
 let del=document.createElement("button")
 del.className="delete-btn"
 del.textContent="DELETE"
@@ -137,8 +154,8 @@ save()
 renderTasks()
 }
 
-
 actions.appendChild(done)
+actions.appendChild(edit)
 actions.appendChild(del)
 
 task.appendChild(info)
@@ -151,3 +168,65 @@ list.appendChild(task)
 }
 
 renderTasks()
+
+// EDIT MODAL FUNCTIONALITY
+console.log('Initializing edit modal functionality')
+const editModal=document.getElementById("editModal")
+const editForm=document.getElementById("editForm")
+const cancelEdit=document.getElementById("cancelEdit")
+let currentEditIndex=-1
+
+console.log('Edit modal elements:', {editModal, editForm, cancelEdit})
+
+function openEditModal(index){
+console.log('Opening edit modal for task index:', index)
+currentEditIndex=index
+const task=tasks[index]
+console.log('Task data:', task)
+
+document.getElementById("editName").value=task.text
+document.getElementById("editDescription").value=task.description||""
+document.getElementById("editDeadline").value=task.deadline||""
+
+console.log('Modal elements set, showing modal')
+editModal.style.display="block"
+}
+
+function closeEditModal(){
+console.log('Closing edit modal')
+editModal.style.display="none"
+currentEditIndex=-1
+}
+
+if(cancelEdit){
+console.log('Setting up cancel button handler')
+cancelEdit.onclick=closeEditModal
+}
+
+if(editForm){
+console.log('Setting up form submission handler')
+editForm.onsubmit=(e)=>{
+e.preventDefault()
+console.log('Form submitted for task index:', currentEditIndex)
+
+if(currentEditIndex===-1) return
+
+const task=tasks[currentEditIndex]
+task.text=document.getElementById("editName").value
+task.description=document.getElementById("editDescription").value
+task.deadline=document.getElementById("editDeadline").value
+
+console.log('Updated task:', task)
+save()
+renderTasks()
+closeEditModal()
+}
+}
+
+// Close modal when clicking outside
+window.onclick=(event)=>{
+if(event.target===editModal){
+console.log('Clicked outside modal, closing')
+closeEditModal()
+}
+}

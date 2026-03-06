@@ -44,6 +44,32 @@
 
 <section id="taskList" class="tasks"></section>
 
+<!-- Edit Task Modal -->
+<div id="editModal" class="modal">
+<div class="modal-content">
+<h2>Edit Task</h2>
+<form id="editForm">
+<label for="editName">Task Name:</label>
+<input type="text" id="editName" required>
+
+<label for="editDescription">Description (optional):</label>
+<textarea id="editDescription" rows="3"></textarea>
+
+<label for="editDeadline">Deadline:</label>
+<input type="datetime-local" id="editDeadline" required>
+
+<div class="form-info">
+<small>Start date & time will be automatically added</small>
+</div>
+
+<div class="modal-actions">
+<button type="button" id="cancelEdit">CANCEL</button>
+<button type="submit">SAVE CHANGES</button>
+</div>
+</form>
+</div>
+</div>
+
 </main>
 
 <script src="script.js"></script>
