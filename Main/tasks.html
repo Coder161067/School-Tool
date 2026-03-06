@@ -20,7 +20,7 @@
 </nav>
 
 <div class="controls">
-<button id="themeToggle">THEME</button>
+<a href="settings.html" class="gear-icon"></a>
 <div id="clock"></div>
 </div>
 
@@ -29,17 +29,7 @@
 <main>
 
 <section class="add-task">
-
-<input id="taskInput" placeholder="enter task">
-<select id="subject">
-<option>Math</option>
-<option>Science</option>
-<option>English</option>
-<option>History</option>
-</select>
-
-<button id="addTask">ADD</button>
-
+<button id="addTask">ADD TASK</button>
 </section>
 
 <section id="taskList" class="tasks"></section>
@@ -52,19 +42,58 @@
 <label for="editName">Task Name:</label>
 <input type="text" id="editName" required>
 
+<label for="editSubject">Subject:</label>
+<select id="editSubject">
+<option>Math</option>
+<option>Science</option>
+<option>English</option>
+<option>History</option>
+<option>General</option>
+</select>
+
 <label for="editDescription">Description (optional):</label>
 <textarea id="editDescription" rows="3"></textarea>
 
 <label for="editDeadline">Deadline:</label>
-<input type="datetime-local" id="editDeadline" required>
+<div class="deadline-inputs">
+<input type="date" id="editDeadlineDate" required>
+<input type="time" id="editDeadlineTime" required>
+</div>
 
-<div class="form-info">
-<small>Start date & time will be automatically added</small>
+<div class="advanced-toggle">
+<span class="arrow">▶</span>
+<span>Advanced Options</span>
+</div>
+
+<div class="advanced-section" id="advancedSection">
+<label for="editStartDate">Start Date:</label>
+<div class="deadline-inputs">
+<input type="date" id="editStartDateDate">
+<input type="time" id="editStartTime">
+</div>
 </div>
 
 <div class="modal-actions">
 <button type="button" id="cancelEdit">CANCEL</button>
 <button type="submit">SAVE CHANGES</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+<div class="modal-content">
+<h2>Delete Task</h2>
+<p>Are you sure you want to delete this task?</p>
+<p><strong id="deleteTaskName"></strong></p>
+<form id="deleteForm">
+<label for="confirmDelete">Type the full task name to confirm:</label>
+<input type="text" id="confirmDelete" required>
+
+<div class="modal-actions">
+<button type="button" id="cancelDelete">CANCEL</button>
+<button type="submit" id="confirmDeleteBtn">DELETE</button>
 </div>
 </form>
 </div>

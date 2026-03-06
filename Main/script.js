@@ -15,24 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// THEME TOGGLE
-const toggle=document.getElementById("themeToggle")
-
-if(localStorage.theme==="dark"){
-document.body.classList.add("dark")
-}
-
-if(toggle){
-toggle.onclick=()=>{
-document.body.classList.toggle("dark")
-
-localStorage.theme=document.body.classList.contains("dark")
-? "dark"
-: "light"
-}
-}
-
-
 // TASK STORAGE
 let tasks=JSON.parse(localStorage.tasks||"[]")
 
@@ -62,14 +44,10 @@ addBtn.onclick=addTask
 
 
 function addTask(){
-
-let text=input.value.trim()
-
-if(!text) return
-
+// Create a new task with empty name that will be filled in edit modal
 let task={
-text:text,
-subject:subjectSelect.value,
+text:"",
+subject:"General",
 done:false,
 description:"",
 deadline:"",
@@ -86,8 +64,6 @@ renderTasks()
 const newTaskIndex=tasks.length-1
 console.log('Auto-opening edit modal for new task at index:', newTaskIndex)
 openEditModal(newTaskIndex)
-
-input.value=""
 }
 
 
@@ -149,9 +125,8 @@ del.className="delete-btn"
 del.textContent="DELETE"
 
 del.onclick=()=>{
-tasks.splice(i,1)
-save()
-renderTasks()
+console.log('Delete button clicked for task index:', i)
+openDeleteModal(i)
 }
 
 actions.appendChild(done)
@@ -185,8 +160,40 @@ const task=tasks[index]
 console.log('Task data:', task)
 
 document.getElementById("editName").value=task.text
+document.getElementById("editSubject").value=task.subject
 document.getElementById("editDescription").value=task.description||""
-document.getElementById("editDeadline").value=task.deadline||""
+
+// Set default deadline to current day if task doesn't have one
+let deadlineDate=""
+let deadlineTime=""
+
+if(task.deadline && task.deadline.includes(" ")){
+const [date, time]=task.deadline.split(" ")
+deadlineDate=date
+deadlineTime=time
+}else{
+deadlineDate=new Date().toISOString().slice(0,10)
+deadlineTime="12:00"
+}
+
+document.getElementById("editDeadlineDate").value=deadlineDate
+document.getElementById("editDeadlineTime").value=deadlineTime
+
+// Set start date from task
+let startDate=""
+let startTime=""
+
+if(task.startDate && task.startDate.includes("T")){
+const isoDate=new Date(task.startDate)
+startDate=isoDate.toISOString().slice(0,10)
+startTime=isoDate.toTimeString().slice(0,5)
+}else{
+startDate=new Date().toISOString().slice(0,10)
+startTime=new Date().toTimeString().slice(0,5)
+}
+
+document.getElementById("editStartDateDate").value=startDate
+document.getElementById("editStartTime").value=startTime
 
 console.log('Modal elements set, showing modal')
 editModal.style.display="block"
@@ -213,8 +220,22 @@ if(currentEditIndex===-1) return
 
 const task=tasks[currentEditIndex]
 task.text=document.getElementById("editName").value
+task.subject=document.getElementById("editSubject").value
 task.description=document.getElementById("editDescription").value
-task.deadline=document.getElementById("editDeadline").value
+
+// Combine date and time inputs
+const deadlineDate=document.getElementById("editDeadlineDate").value
+const deadlineTime=document.getElementById("editDeadlineTime").value
+task.deadline=`${deadlineDate} ${deadlineTime}`
+
+// Update start date if advanced section is visible
+const advancedSection=document.getElementById("advancedSection")
+if(advancedSection.classList.contains("show")){
+const startDate=document.getElementById("editStartDateDate").value
+const startTime=document.getElementById("editStartTime").value
+const startDateTime=new Date(`${startDate}T${startTime}`)
+task.startDate=startDateTime.toISOString()
+}
 
 console.log('Updated task:', task)
 save()
@@ -223,10 +244,88 @@ closeEditModal()
 }
 }
 
+// Advanced toggle functionality
+const advancedToggle=document.querySelector(".advanced-toggle")
+const advancedSection=document.getElementById("advancedSection")
+const arrow=document.querySelector(".arrow")
+
+if(advancedToggle){
+advancedToggle.onclick=()=>{
+advancedSection.classList.toggle("show")
+arrow.classList.toggle("expanded")
+}
+}
+
+// DELETE MODAL FUNCTIONALITY
+console.log('Initializing delete modal functionality')
+const deleteModal=document.getElementById("deleteModal")
+const deleteForm=document.getElementById("deleteForm")
+const cancelDelete=document.getElementById("cancelDelete")
+const confirmDeleteBtn=document.getElementById("confirmDeleteBtn")
+let currentDeleteIndex=-1
+
+console.log('Delete modal elements:', {deleteModal, deleteForm, cancelDelete})
+
+function openDeleteModal(index){
+console.log('Opening delete modal for task index:', index)
+currentDeleteIndex=index
+const task=tasks[index]
+console.log('Task to delete:', task)
+
+const quotedTaskName=`"${task.text}"`
+document.getElementById("deleteTaskName").textContent=quotedTaskName
+document.getElementById("confirmDelete").value=""
+
+console.log('Delete modal elements set, showing modal')
+deleteModal.style.display="block"
+}
+
+function closeDeleteModal(){
+console.log('Closing delete modal')
+deleteModal.style.display="none"
+currentDeleteIndex=-1
+}
+
+if(cancelDelete){
+console.log('Setting up cancel delete button handler')
+cancelDelete.onclick=closeDeleteModal
+}
+
+if(deleteForm){
+console.log('Setting up delete form submission handler')
+deleteForm.onsubmit=(e)=>{
+e.preventDefault()
+console.log('Delete form submitted for task index:', currentDeleteIndex)
+
+if(currentDeleteIndex===-1) return
+
+const task=tasks[currentDeleteIndex]
+const confirmText=document.getElementById("confirmDelete").value
+
+console.log('Confirmation text entered:', confirmText)
+console.log('Task name to match:', task.text)
+
+if(confirmText===task.text){
+console.log('Confirmation matches, deleting task')
+tasks.splice(currentDeleteIndex,1)
+save()
+renderTasks()
+closeDeleteModal()
+}else{
+console.log('Confirmation does not match, showing alert')
+alert('Task name does not match. Please type the exact task name to confirm deletion.')
+}
+}
+}
+
 // Close modal when clicking outside
 window.onclick=(event)=>{
 if(event.target===editModal){
 console.log('Clicked outside modal, closing')
 closeEditModal()
+}
+if(event.target===deleteModal){
+console.log('Clicked outside delete modal, closing')
+closeDeleteModal()
 }
 }

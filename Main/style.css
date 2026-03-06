@@ -61,6 +61,46 @@ align-items:center;
 gap:15px;
 }
 
+.gear-icon{
+font-size:18px;
+text-decoration:none !important;
+color:var(--text);
+background:transparent;
+border:2px solid transparent;
+padding:6px 8px;
+border-radius:4px;
+font-family:inherit;
+cursor:pointer;
+transition:color 0.15s, background 0.15s, border-color 0.15s;
+display:inline-block;
+vertical-align:middle;
+text-decoration-line:none !important;
+text-decoration-style:solid !important;
+text-decoration-color:transparent !important;
+text-decoration-thickness:0 !important;
+border-bottom:none !important;
+box-shadow:none !important;
+outline:none !important;
+}
+
+.gear-icon:hover, .gear-icon:focus, .gear-icon:visited, .gear-icon:link{
+text-decoration:none !important;
+text-decoration-line:none !important;
+border-bottom:none !important;
+outline:none !important;
+}
+
+.gear-icon:hover{
+color:var(--accent);
+background:var(--panel);
+border-color:var(--panel);
+}
+
+.gear-icon:active{
+background:var(--text);
+color:var(--bg);
+}
+
 /* MAIN */
 
 main{
@@ -133,8 +173,13 @@ margin-bottom:10px;
 
 .add-task{
 display:flex;
-gap:10px;
+justify-content:center;
 margin-bottom:30px;
+}
+
+.add-task button{
+font-size:16px;
+padding:12px 24px;
 }
 
 .tasks{
@@ -195,6 +240,17 @@ border:2px solid var(--panel);
 
 .edit-btn:hover{
 background:var(--panel);
+}
+
+#confirmDeleteBtn{
+background:#dc3545;
+border-color:#dc3545;
+color:#F9F7F7;
+}
+
+#confirmDeleteBtn:hover{
+background:#c82333;
+border-color:#c82333;
 }
 
 /* CALENDAR */
@@ -288,6 +344,53 @@ border:2px solid var(--panel);
 font-family:inherit;
 background:var(--bg);
 color:var(--text);
+}
+
+.deadline-inputs{
+display:flex;
+gap:10px;
+}
+
+.deadline-inputs input{
+flex:1;
+}
+
+.advanced-toggle{
+display:flex;
+align-items:center;
+gap:8px;
+margin:15px 0;
+cursor:pointer;
+color:var(--accent);
+font-size:14px;
+padding:8px;
+border-radius:4px;
+transition:background 0.15s;
+}
+
+.advanced-toggle:hover{
+background:var(--panel);
+}
+
+.arrow{
+display:inline-block;
+transition:transform 0.2s;
+font-size:12px;
+}
+
+.arrow.expanded{
+transform:rotate(90deg);
+}
+
+.advanced-section{
+display:none;
+margin-top:15px;
+padding-top:15px;
+border-top:1px solid var(--panel);
+}
+
+.advanced-section.show{
+display:block;
 }
 
 .form-info{
