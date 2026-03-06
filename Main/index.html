@@ -27,8 +27,27 @@
 <!-- Settings Popout Menu -->
 <div id="settingsMenu" class="settings-menu">
 <div class="settings-content">
+
+<!-- Main Settings View -->
+<div id="mainSettingsView" class="settings-view">
 <h3>Settings</h3>
-<button id="themeToggle">TOGGLE DARK MODE</button>
+<button id="themeToggle">CHANGE THEME</button>
+<button id="subjectsManagementBtn">SUBJECTS MANAGEMENT</button>
+</div>
+
+<!-- Subjects Management View -->
+<div id="subjectsView" class="settings-view hidden">
+<div class="settings-header">
+<button class="back-arrow" id="backToMain">◀</button>
+<h3>Subjects</h3>
+</div>
+<div class="add-subject">
+<input type="text" id="newSubject" placeholder="New subject name">
+<button id="addSubject">ADD</button>
+</div>
+<div id="subjectList" class="subject-list"></div>
+</div>
+
 </div>
 </div>
 

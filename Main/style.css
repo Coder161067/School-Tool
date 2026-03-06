@@ -449,3 +449,111 @@ width:100%;
 font-size:16px;
 padding:12px 24px;
 }
+
+/* SUBJECT MANAGEMENT */
+
+.subject-management{
+margin-top:30px;
+padding-top:20px;
+border-top:1px solid var(--panel);
+}
+
+.subject-management h4{
+color:var(--accent);
+margin-bottom:15px;
+font-size:18px;
+}
+
+.add-subject{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+}
+
+.add-subject input{
+flex:1;
+padding:8px;
+border:2px solid var(--panel);
+font-family:inherit;
+background:var(--bg);
+color:var(--text);
+}
+
+.add-subject button{
+width:auto;
+padding:8px 16px;
+}
+
+.subject-list{
+display:flex;
+flex-direction:column;
+gap:8px;
+max-height:200px;
+overflow-y:auto;
+}
+
+.subject-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:8px 12px;
+background:var(--panel);
+border-radius:4px;
+}
+
+.subject-item span{
+font-size:14px;
+}
+
+.subject-item button{
+width:auto;
+padding:4px 8px;
+font-size:12px;
+background:transparent;
+border:1px solid var(--text);
+color:var(--text);
+}
+
+/* SETTINGS VIEW NAVIGATION */
+
+.settings-view.hidden{
+display:none;
+}
+
+.settings-view{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.settings-header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:10px;
+}
+
+.settings-header h3{
+margin:0;
+flex:1;
+text-align:center;
+}
+
+.back-arrow{
+background:transparent;
+border:2px solid var(--panel);
+color:var(--text);
+padding:8px 12px;
+font-size:14px;
+cursor:pointer;
+transition:all 0.15s;
+width:auto;
+}
+
+.back-arrow:hover{
+background:var(--panel);
+}
+
+#subjectsManagementBtn{
+margin-top:10px;
+}

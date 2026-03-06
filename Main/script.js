@@ -371,6 +371,8 @@ function toggleSettingsMenu() {
 function closeSettingsMenu() {
   console.log('Closing settings menu')
   settingsMenu.classList.remove("show")
+  // Reset to main settings view
+  showMainSettingsView()
 }
 
 if (gearIcon) {
@@ -379,3 +381,102 @@ if (gearIcon) {
     toggleSettingsMenu()
   }
 }
+
+// SETTINGS VIEW NAVIGATION
+const mainSettingsView = document.getElementById("mainSettingsView")
+const subjectsView = document.getElementById("subjectsView")
+const subjectsManagementBtn = document.getElementById("subjectsManagementBtn")
+const backToMain = document.getElementById("backToMain")
+
+function showSubjectsView() {
+  console.log('Showing subjects view')
+  mainSettingsView.classList.add("hidden")
+  subjectsView.classList.remove("hidden")
+}
+
+function showMainSettingsView() {
+  console.log('Showing main settings view')
+  subjectsView.classList.add("hidden")
+  mainSettingsView.classList.remove("hidden")
+}
+
+if (subjectsManagementBtn) {
+  subjectsManagementBtn.onclick = showSubjectsView
+}
+
+if (backToMain) {
+  backToMain.onclick = showMainSettingsView
+}
+
+// SUBJECT MANAGEMENT
+let subjects = JSON.parse(localStorage.subjects || '["Math","Science","English","History","General"]')
+
+function saveSubjects(){
+  localStorage.subjects = JSON.stringify(subjects)
+}
+
+function renderSubjects(){
+  const subjectList = document.getElementById("subjectList")
+  const editSubject = document.getElementById("editSubject")
+  
+  if(subjectList){
+    subjectList.innerHTML = ""
+    subjects.forEach((subject, index) => {
+      const item = document.createElement("div")
+      item.className = "subject-item"
+      item.innerHTML = `
+        <span>${subject}</span>
+        <button onclick="removeSubject(${index})">Remove</button>
+      `
+      subjectList.appendChild(item)
+    })
+  }
+  
+  // Update edit modal dropdown
+  if(editSubject){
+    editSubject.innerHTML = ""
+    subjects.forEach(subject => {
+      const option = document.createElement("option")
+      option.value = subject
+      option.textContent = subject
+      editSubject.appendChild(option)
+    })
+  }
+}
+
+function addSubject(){
+  const newSubjectInput = document.getElementById("newSubject")
+  const subject = newSubjectInput.value.trim()
+  
+  if(!subject) return
+  if(subjects.includes(subject)){
+    alert('Subject already exists')
+    return
+  }
+  
+  subjects.push(subject)
+  saveSubjects()
+  renderSubjects()
+  newSubjectInput.value = ""
+}
+
+function removeSubject(index){
+  subjects.splice(index, 1)
+  saveSubjects()
+  renderSubjects()
+}
+
+const addSubjectBtn = document.getElementById("addSubject")
+if(addSubjectBtn){
+  addSubjectBtn.onclick = addSubject
+}
+
+const newSubjectInput = document.getElementById("newSubject")
+if(newSubjectInput){
+  newSubjectInput.addEventListener("keypress", (e) => {
+    if(e.key === "Enter") addSubject()
+  })
+}
+
+// Initialize subjects on page load
+renderSubjects()
