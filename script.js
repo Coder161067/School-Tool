@@ -255,7 +255,7 @@ return
 }
 
 if(!taskSubject){
-showNotification('Subject is required', '⚠')
+showNotification('Subject is required', 'warning')
 return
 }
 
@@ -367,7 +367,7 @@ renderStats()
 closeDeleteModal()
 }else{
 console.log('Confirmation does not match, showing alert')
-showNotification('Task name does not match. Please type the exact task name to confirm deletion.', '⚠')
+      showNotification('Task name does not match. Please type the exact task name to confirm deletion.', 'warning')
 }
 }
 }
@@ -413,7 +413,7 @@ if (discardTaskBtn) {
       renderStats()
       closeEditModal()
       closeUnnamedTaskModal()
-      showNotification('Task discarded', '🗑️')
+      showNotification('Task discarded', 'delete')
     }
   }
 }
@@ -445,13 +445,13 @@ closeSettingsMenu()
 }
 
 // NOTIFICATION FUNCTION
-function showNotification(message, icon = "ℹ") {
+function showNotification(message, icon = "info") {
   // Create notification element
   const notification = document.createElement("div")
   notification.className = "notification"
   notification.innerHTML = `
     <div class="notification-content">
-      <span class="notification-icon">${icon}</span>
+      <span class="material-symbols-outlined notification-icon">${icon}</span>
       <span class="notification-message">${message}</span>
     </div>
     <button class="notification-close">×</button>
@@ -485,20 +485,17 @@ function showNotification(message, icon = "ℹ") {
   }, 5000)
 }
 
-// SETTINGS POPOUT MENU
+// SETTINGS MENU
 const gearIcon = document.getElementById("gearIcon")
 const settingsMenu = document.getElementById("settingsMenu")
+const calendarUrlBtn = document.getElementById("calendarUrlBtn")
 
 function toggleSettingsMenu() {
-  console.log('Toggling settings menu')
   settingsMenu.classList.toggle("show")
 }
 
 function closeSettingsMenu() {
-  console.log('Closing settings menu')
   settingsMenu.classList.remove("show")
-  // Reset to main settings view
-  showMainSettingsView()
 }
 
 if (gearIcon) {
@@ -508,21 +505,44 @@ if (gearIcon) {
   }
 }
 
+if (calendarUrlBtn) {
+  calendarUrlBtn.onclick = showCalendarView
+}
+
 // SETTINGS VIEW NAVIGATION
 const mainSettingsView = document.getElementById("mainSettingsView")
 const subjectsView = document.getElementById("subjectsView")
+const calendarView = document.getElementById("calendarView")
 const subjectsManagementBtn = document.getElementById("subjectsManagementBtn")
 const backToMain = document.getElementById("backToMain")
+const backToMainFromCalendar = document.getElementById("backToMainFromCalendar")
 
 function showSubjectsView() {
   console.log('Showing subjects view')
+  console.log('Current subjects:', subjects)
   mainSettingsView.classList.add("hidden")
   subjectsView.classList.remove("hidden")
+  if (calendarView) {
+    calendarView.classList.add("hidden")
+  }
+  renderSubjects()
+}
+
+function showCalendarView() {
+  console.log('Showing calendar view')
+  console.log('Current calendar view')
+  mainSettingsView.classList.add("hidden")
+  subjectsView.classList.add("hidden")
+  calendarView.classList.remove("hidden")
+  updateCalendarUrlDisplay()
 }
 
 function showMainSettingsView() {
   console.log('Showing main settings view')
   subjectsView.classList.add("hidden")
+  if (calendarView) {
+    calendarView.classList.add("hidden")
+  }
   mainSettingsView.classList.remove("hidden")
 }
 
@@ -534,6 +554,145 @@ if (backToMain) {
   backToMain.onclick = showMainSettingsView
 }
 
+if (backToMainFromCalendar) {
+  backToMainFromCalendar.onclick = showMainSettingsView
+}
+
+// CALENDAR URL MANAGEMENT
+const calendarUrlInput = document.getElementById("calendarUrlInput")
+const saveCalendarUrl = document.getElementById("saveCalendarUrl")
+const removeCalendarUrl = document.getElementById("removeCalendarUrl")
+const refreshCalendar = document.getElementById("refreshCalendar")
+const calendarUrlDisplay = document.getElementById("calendarUrlDisplay")
+
+function updateCalendarUrlDisplay() {
+  const currentUrl = localStorage.calendarUrl
+  if (calendarUrlDisplay) {
+    calendarUrlDisplay.textContent = currentUrl || 'No calendar set'
+  }
+  if (calendarUrlInput) {
+    calendarUrlInput.value = currentUrl || ''
+  }
+}
+
+function updateTimeFormatDisplay() {
+  const currentTimeFormat = localStorage.timeFormat || '24'
+  
+  // Only update if elements exist (they're only on calendar page)
+  // Check both for undefined and null
+  if (typeof timeFormat24 !== 'undefined' && timeFormat24 && 
+      typeof timeFormat12 !== 'undefined' && timeFormat12) {
+    if (currentTimeFormat === '12') {
+      timeFormat12.checked = true
+    } else {
+      timeFormat24.checked = true
+    }
+  }
+}
+
+function getTimeFormat() {
+  return localStorage.timeFormat || '24'
+}
+
+function formatTime(date) {
+  const timeFormat = getTimeFormat()
+  
+  if (timeFormat === '12') {
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    })
+  } else {
+    return date.toLocaleTimeString('en-AU', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    })
+  }
+}
+
+if (saveCalendarUrl) {
+  saveCalendarUrl.onclick = async () => {
+    const url = calendarUrlInput.value.trim()
+    if (!url) {
+      return
+    }
+    
+    try {
+      localStorage.calendarUrl = url
+      
+      // Initialize calendar if on calendar page
+      if (window.calendarDisplay) {
+        await window.calendarDisplay.initialize(url)
+      }
+      
+      updateCalendarUrlDisplay()
+    } catch (error) {
+      console.error('Failed to save calendar:', error)
+    }
+  }
+}
+
+if (removeCalendarUrl) {
+  removeCalendarUrl.onclick = () => {
+    if (confirm('Are you sure you want to remove the calendar?')) {
+      localStorage.removeItem('calendarUrl')
+      updateCalendarUrlDisplay()
+      
+      // Clear calendar display
+      if (window.calendarDisplay) {
+        window.calendarDisplay.renderEmptyCalendar()
+      }
+    }
+  }
+}
+
+if (refreshCalendar) {
+  refreshCalendar.onclick = async () => {
+    const url = localStorage.calendarUrl
+    if (!url) {
+      return
+    }
+    
+    try {
+      // Re-initialize calendar
+      if (window.calendarDisplay) {
+        await window.calendarDisplay.initialize(url)
+      }
+    } catch (error) {
+      console.error('Failed to refresh calendar:', error)
+    }
+  }
+}
+
+const saveTimeFormat = document.getElementById("saveTimeFormat")
+if (saveTimeFormat) {
+  saveTimeFormat.onclick = () => {
+    const selectedFormat = document.querySelector('input[name="timeFormat"]:checked')
+    if (!selectedFormat) {
+      showNotification('Please select a time format', 'warning')
+      return
+    }
+    
+    const format = selectedFormat.value
+    localStorage.timeFormat = format
+    
+    showNotification(`Time format set to ${format}-hour`, 'check_circle')
+    
+    // Refresh calendar if it exists
+    if (window.calendarDisplay) {
+      window.calendarDisplay.renderCalendar()
+    }
+  }
+}
+
+// Initialize time format display on page load
+updateTimeFormatDisplay()
+
+// Initialize calendar URL display on page load
+updateCalendarUrlDisplay()
+
 // SUBJECT MANAGEMENT
 
 function saveSubjects(){
@@ -542,12 +701,19 @@ function saveSubjects(){
 }
 
 function renderSubjects(){
+  console.log('renderSubjects called')
+  console.log('subjects array:', subjects)
   const subjectList = document.getElementById("subjectList")
   const editSubject = document.getElementById("editSubject")
   
+  console.log('subjectList element:', subjectList)
+  console.log('editSubject element:', editSubject)
+  
   if(subjectList){
+    console.log('subjectList exists, clearing and rendering subjects')
     subjectList.innerHTML = ""
     subjects.forEach((subject, index) => {
+      console.log('rendering subject:', subject, 'at index:', index)
       const item = document.createElement("div")
       item.className = "subject-item"
       item.innerHTML = `
@@ -556,10 +722,14 @@ function renderSubjects(){
       `
       subjectList.appendChild(item)
     })
+    console.log('finished rendering subjects to subjectList')
+  } else {
+    console.log('subjectList element not found!')
   }
   
   // Update edit modal dropdown
   if(editSubject){
+    console.log('updating editSubject dropdown')
     editSubject.innerHTML = ""
     subjects.forEach(subject => {
       const option = document.createElement("option")
@@ -610,7 +780,7 @@ function addSubject(){
   
   if(!subject) return
   if(subjects.includes(subject)){
-    showNotification('Subject already exists', '⚠')
+    showNotification('Subject already exists', 'warning')
     return
   }
   
@@ -670,3 +840,180 @@ function renderDashboard(){
 
 // Call renderDashboard on load
 renderDashboard()
+
+// DASHBOARD DAY VIEW FUNCTIONALITY
+class DashboardDayView {
+    constructor() {
+        this.parser = new ICalParser();
+        this.currentDate = new Date();
+        this.init();
+    }
+
+    init() {
+        console.log('=== DASHBOARD DAY VIEW INITIALIZATION ===');
+        this.loadCalendar();
+    }
+
+    // Determine which day to show (today or tomorrow)
+    getTargetDate() {
+        const now = new Date();
+        const currentHour = now.getHours();
+        
+        // School day ends at 3 PM (15:00)
+        if (currentHour >= 15) {
+            // Show tomorrow if school day is over
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            console.log('School day over, showing tomorrow:', tomorrow.toDateString());
+            return tomorrow;
+        } else {
+            // Show today
+            console.log('School day ongoing, showing today:', now.toDateString());
+            return now;
+        }
+    }
+
+    // Load calendar and render day view
+    async loadCalendar() {
+        console.log('=== LOAD CALENDAR START ===');
+        
+        const savedUrl = localStorage.calendarUrl;
+        console.log('Saved URL found:', savedUrl);
+        
+        if (!savedUrl) {
+            console.log('No saved URL, showing empty day view');
+            this.showEmptyDayView('No calendar set. Add calendar URL in settings.');
+            return;
+        }
+
+        try {
+            console.log('Starting calendar fetch...');
+            console.log('Parser created:', !!this.parser);
+            
+            // Show loading message
+            const contentElement = document.getElementById('dayViewContent');
+            if (contentElement) {
+                contentElement.innerHTML = '<div class="loading-message">Loading classes...</div>';
+            }
+            
+            console.log('Fetching from URL:', savedUrl);
+            const events = await this.parser.fetchFromURL(savedUrl);
+            console.log('Fetch completed, events returned:', events);
+            console.log('Parser loaded status:', this.parser.loaded);
+            console.log('Parser events count:', this.parser.events.length);
+            
+            console.log('Now rendering day view...');
+            this.renderDayView();
+            
+        } catch (error) {
+            console.error('=== LOAD CALENDAR ERROR ===');
+            console.error('Error details:', error);
+            console.error('Error message:', error.message);
+            console.error('Error stack:', error.stack);
+            
+            this.showEmptyDayView('Failed to load calendar. Check your calendar URL.');
+        }
+        
+        console.log('=== LOAD CALENDAR END ===');
+    }
+
+    // Render day view
+    renderDayView() {
+        const targetDate = this.getTargetDate();
+        const dayEvents = this.parser.getDayEvents(targetDate);
+        
+        // Update title
+        const titleElement = document.getElementById('dayViewTitle');
+        const now = new Date();
+        const isToday = targetDate.toDateString() === now.toDateString();
+        
+        if (isToday) {
+            titleElement.textContent = "TODAY'S CLASSES";
+        } else {
+            titleElement.textContent = "TOMORROW'S CLASSES";
+        }
+
+        // Sort events by start time
+        dayEvents.sort((a, b) => {
+            const timeA = new Date(a.start).getTime();
+            const timeB = new Date(b.start).getTime();
+            return timeA - timeB;
+        });
+
+        // Render events
+        const contentElement = document.getElementById('dayViewContent');
+        
+        if (dayEvents.length === 0) {
+            const message = isToday ? 'No classes today.' : 'No classes tomorrow.';
+            this.showEmptyDayView(message);
+            return;
+        }
+
+        let html = '';
+        dayEvents.forEach(event => {
+            const startTime = new Date(event.start);
+            const endTime = new Date(event.end);
+            
+            const startTimeString = window.formatTime ? window.formatTime(startTime) : 
+                startTime.toLocaleTimeString('en-AU', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+                
+            const endTimeString = window.formatTime ? window.formatTime(endTime) : 
+                endTime.toLocaleTimeString('en-AU', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+
+            html += `
+                <div class="day-event">
+                    <div class="event-time">${startTimeString} - ${endTimeString}</div>
+                    <div class="event-subject">${event.summary}</div>
+                    ${event.attendingStaff ? `<div class="event-staff">Staff: ${event.attendingStaff}</div>` : ''}
+                    ${event.location ? `<div class="event-location">Room: ${event.location}</div>` : ''}
+                </div>
+            `;
+        });
+
+        contentElement.innerHTML = html;
+        console.log(`Dashboard day view rendered: ${dayEvents.length} classes for ${isToday ? 'today' : 'tomorrow'}`);
+    }
+
+    // Show empty day view
+    showEmptyDayView(message) {
+        const contentElement = document.getElementById('dayViewContent');
+        contentElement.innerHTML = `<div class="empty-day-message">${message}</div>`;
+    }
+}
+
+// Initialize dashboard day view
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('=== DOM CONTENT LOADED - CHECKING FOR DASHBOARD ===');
+    console.log('Current pathname:', window.location.pathname);
+    console.log('Current href:', window.location.href);
+    
+    // Only initialize on dashboard page
+    if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+        console.log('Dashboard detected, initializing day view...');
+        
+        // Check if required elements exist
+        const dayViewTitle = document.getElementById('dayViewTitle');
+        const dayViewContent = document.getElementById('dayViewContent');
+        
+        console.log('Day view elements found:', {
+            title: !!dayViewTitle,
+            content: !!dayViewContent
+        });
+        
+        if (dayViewTitle && dayViewContent) {
+            window.dashboardDayView = new DashboardDayView();
+        } else {
+            console.error('Day view elements not found on dashboard');
+        }
+    } else {
+        console.log('Not on dashboard page, skipping day view initialization');
+    }
+});

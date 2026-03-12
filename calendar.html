@@ -2,9 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Calendar</title>
+<title>School Manager - Calendar</title>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<script src="ical-parser.js"></script>
 </head>
 
 <body>
@@ -21,7 +25,7 @@
 </nav>
 
 <div class="controls">
-<button class="gear-icon" id="gearIcon"></button>
+<button class="gear-icon" id="gearIcon"><span class="material-symbols-outlined">settings</span></button>
 <div id="clock"></div>
 </div>
 
@@ -34,12 +38,13 @@
 <h3>Settings</h3>
 <button id="themeToggle">CHANGE THEME</button>
 <button id="subjectsManagementBtn">SUBJECTS MANAGEMENT</button>
+<button id="calendarUrlBtn">CALENDAR URL</button>
 </div>
 
 <!-- Subjects Management View -->
 <div id="subjectsView" class="settings-view hidden">
 <div class="settings-header">
-<button class="back-arrow" id="backToMain">◀</button>
+<button class="back-arrow" id="backToMain"><span class="material-symbols-outlined">arrow_back</span></button>
 <h3>Subjects</h3>
 </div>
 <div class="add-subject">
@@ -49,6 +54,44 @@
 <div id="subjectList" class="subject-list"></div>
 </div>
 
+<!-- Calendar URL View -->
+<div id="calendarView" class="settings-view hidden">
+<div class="settings-header">
+<button class="back-arrow" id="backToMainFromCalendar"><span class="material-symbols-outlined">arrow_back</span></button>
+<h3>Calendar URL</h3>
+</div>
+<div class="calendar-url-section">
+<p style="margin-bottom: 15px; color: var(--text);">Enter your iCalendar URL to load your timetable:</p>
+<div class="add-calendar-url">
+<input type="url" id="calendarUrlInput" placeholder="https://example.com/calendar.ics" style="flex: 1; margin-bottom: 10px;">
+<button id="saveCalendarUrl" style="width: 100%; margin-bottom: 15px;">SAVE CALENDAR</button>
+</div>
+<div id="currentCalendarUrl" style="margin-bottom: 15px; padding: 10px; background: var(--panel); border-radius: 4px; word-break: break-all;">
+<strong>Current URL:</strong> <span id="calendarUrlDisplay">No calendar set</span>
+</div>
+<div class="calendar-actions">
+<button id="removeCalendarUrl" style="background: transparent; color: var(--text); border: 2px solid var(--panel);">REMOVE CALENDAR</button>
+<button id="refreshCalendar" style="background: transparent; color: var(--text); border: 2px solid var(--panel);">REFRESH CALENDAR</button>
+</div>
+</div>
+
+<!-- Time Format Settings -->
+<div class="time-format-section" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--panel);">
+<h4 style="margin-bottom: 15px; color: var(--accent);">Time Format</h4>
+<div class="time-format-options">
+<label style="display: flex; align-items: center; margin-bottom: 10px; cursor: pointer; color: var(--text);">
+<input type="radio" name="timeFormat" value="24" id="timeFormat24" style="margin-right: 8px;">
+<span>24-hour format (09:00, 14:30)</span>
+</label>
+<label style="display: flex; align-items: center; margin-bottom: 15px; cursor: pointer; color: var(--text);">
+<input type="radio" name="timeFormat" value="12" id="timeFormat12" style="margin-right: 8px;">
+<span>12-hour format (9:00 AM, 2:30 PM)</span>
+</label>
+<button id="saveTimeFormat" style="width: 100%;">SAVE TIME FORMAT</button>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -56,20 +99,14 @@
 
 <main>
 
+<div class="calendar-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<button onclick="calendarDisplay.navigateWeek(-1)" style="font-size: 12px; padding: 6px 12px;">← Previous Week</button>
+<h3 id="currentWeek" style="color: var(--accent); margin: 0;"></h3>
+<button onclick="calendarDisplay.navigateWeek(1)" style="font-size: 12px; padding: 6px 12px;">Next Week →</button>
+</div>
+
 <div class="calendar-grid">
-
-<div>MON</div>
-<div>TUE</div>
-<div>WED</div>
-<div>THU</div>
-<div>FRI</div>
-
-<div class="day">Math Homework</div>
-<div class="day"></div>
-<div class="day">Science Lab</div>
-<div class="day"></div>
-<div class="day">Essay Due</div>
-
+<!-- Calendar content will be dynamically generated -->
 </div>
 
 </main>
