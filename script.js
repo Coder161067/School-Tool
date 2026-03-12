@@ -342,7 +342,23 @@ return
 
 const quotedTaskName=`"${task.text}"`
 document.getElementById("deleteTaskName").textContent=quotedTaskName
-document.getElementById("confirmDelete").value=""
+const confirmInput = document.getElementById("confirmDelete")
+confirmInput.value=""
+confirmInput.placeholder = task.text
+confirmInput.style.opacity = '1'
+confirmInput.style.fontStyle = 'normal'
+confirmInput.focus()
+
+// Add input event listener to handle placeholder visibility
+confirmInput.oninput = function() {
+  if (this.value.length > 0) {
+    this.style.opacity = '1'
+    this.style.fontStyle = 'normal'
+  } else {
+    this.style.opacity = '0.5'
+    this.style.fontStyle = 'italic'
+  }
+}
 
 console.log('Delete modal elements set, showing modal')
 deleteModal.style.display="block"
@@ -1021,6 +1037,71 @@ if (importBtn && csvFileInput) {
     }
     // Clear the input so the same file can be selected again
     e.target.value = ''
+  }
+}
+
+// DELETE ALL TASKS FUNCTIONALITY
+const deleteAllBtn = document.getElementById('deleteAllTasks')
+const deleteAllModal = document.getElementById('deleteAllModal')
+const deleteAllForm = document.getElementById('deleteAllForm')
+const cancelDeleteAll = document.getElementById('cancelDeleteAll')
+
+function openDeleteAllModal() {
+  if (tasks.length === 0) {
+    showNotification('No tasks to delete', 'warning')
+    return
+  }
+  deleteAllModal.style.display = 'block'
+  const confirmInput = document.getElementById('confirmDeleteAll')
+  confirmInput.value = ''
+  confirmInput.style.opacity = '1'
+  confirmInput.style.fontStyle = 'normal'
+  confirmInput.focus()
+  
+  // Add input event listener to handle placeholder visibility
+  confirmInput.oninput = function() {
+    if (this.value.length > 0) {
+      this.style.opacity = '1'
+      this.style.fontStyle = 'normal'
+    } else {
+      this.style.opacity = '0.5'
+      this.style.fontStyle = 'italic'
+    }
+  }
+}
+
+function closeDeleteAllModal() {
+  deleteAllModal.style.display = 'none'
+}
+
+function deleteAllTasks() {
+  const taskCount = tasks.length
+  tasks = []
+  save()
+  renderTasks()
+  renderDashboard()
+  renderStats()
+  closeDeleteAllModal()
+  showNotification(`Deleted ${taskCount} tasks`, 'check_circle')
+}
+
+if (deleteAllBtn) {
+  deleteAllBtn.onclick = openDeleteAllModal
+}
+
+if (cancelDeleteAll) {
+  cancelDeleteAll.onclick = closeDeleteAllModal
+}
+
+if (deleteAllForm) {
+  deleteAllForm.onsubmit = (e) => {
+    e.preventDefault()
+    const confirmationText = document.getElementById('confirmDeleteAll').value.trim()
+    if (confirmationText === 'I confirm that I am deleting all my tasks') {
+      deleteAllTasks()
+    } else {
+      showNotification('Incorrect confirmation text', 'error')
+    }
   }
 }
 

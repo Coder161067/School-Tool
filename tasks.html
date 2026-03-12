@@ -106,6 +106,7 @@
 <div class="csv-controls">
 <button id="exportTasks">EXPORT CSV</button>
 <button id="importTasks">IMPORT CSV</button>
+<button id="deleteAllTasks" style="background: var(--accent); color: white;">DELETE ALL TASKS</button>
 <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
 </div>
 </section>
@@ -178,11 +179,29 @@
 <p><strong id="deleteTaskName"></strong></p>
 <form id="deleteForm">
 <label for="confirmDelete">Type the full task name to confirm:</label>
-<input type="text" id="confirmDelete" required>
+<input type="text" id="confirmDelete" required placeholder="Type the task name to confirm" style="opacity: 0.5; font-style: italic;">
 
 <div class="modal-actions">
 <button type="button" id="cancelDelete">CANCEL</button>
 <button type="submit" id="confirmDeleteBtn">DELETE</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- Delete All Tasks Confirmation Modal -->
+<div id="deleteAllModal" class="modal">
+<div class="modal-content">
+<h2>Delete All Tasks</h2>
+<p>⚠️ This action cannot be undone!</p>
+<p>Type "I confirm that I am deleting all my tasks" to confirm:</p>
+<form id="deleteAllForm">
+<label for="confirmDeleteAll">Confirmation text:</label>
+<input type="text" id="confirmDeleteAll" required placeholder="I confirm that I am deleting all my tasks" style="opacity: 0.5; font-style: italic;">
+
+<div class="modal-actions">
+<button type="button" id="cancelDeleteAll">CANCEL</button>
+<button type="submit" id="confirmDeleteAllBtn">DELETE ALL TASKS</button>
 </div>
 </form>
 </div>
