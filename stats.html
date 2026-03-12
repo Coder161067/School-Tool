@@ -38,6 +38,7 @@
 <h3>Settings</h3>
 <button id="themeToggle">CHANGE THEME</button>
 <button id="subjectsManagementBtn">SUBJECTS MANAGEMENT</button>
+<button id="calendarUrlBtn">CALENDAR URL</button>
 </div>
 
 <!-- Subjects Management View -->
@@ -51,6 +52,44 @@
 <button id="addSubject">ADD</button>
 </div>
 <div id="subjectList" class="subject-list"></div>
+</div>
+
+<!-- Calendar URL View -->
+<div id="calendarView" class="settings-view hidden">
+<div class="settings-header">
+<button class="back-arrow" id="backToMainFromCalendar"><span class="material-symbols-outlined">arrow_back</span></button>
+<h3>Calendar URL</h3>
+</div>
+<div class="calendar-url-section">
+<p style="margin-bottom: 15px; color: var(--text);">Enter your iCalendar URL to load your timetable:</p>
+<div class="add-calendar-url">
+<input type="url" id="calendarUrlInput" placeholder="https://example.com/calendar.ics" style="flex: 1; margin-bottom: 10px;">
+<button id="saveCalendarUrl" style="width: 100%; margin-bottom: 15px;">SAVE CALENDAR</button>
+</div>
+<div id="currentCalendarUrl" style="margin-bottom: 15px; padding: 10px; background: var(--panel); border-radius: 4px; word-break: break-all;">
+<strong>Current URL:</strong> <span id="calendarUrlDisplay">No calendar set</span>
+</div>
+<div class="calendar-actions">
+<button id="removeCalendarUrl" style="background: transparent; color: var(--text); border: 2px solid var(--panel);">REMOVE CALENDAR</button>
+<button id="refreshCalendar" style="background: transparent; color: var(--text); border: 2px solid var(--panel);">REFRESH CALENDAR</button>
+</div>
+</div>
+
+<!-- Time Format Settings -->
+<div class="time-format-section" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--panel);">
+<h4 style="margin-bottom: 15px; color: var(--accent);">Time Format</h4>
+<div class="time-format-options">
+<label style="display: flex; align-items: center; margin-bottom: 10px; cursor: pointer; color: var(--text);">
+<input type="radio" name="timeFormat" value="24" id="timeFormat24" style="margin-right: 8px;">
+<span>24-hour format (09:00, 14:30)</span>
+</label>
+<label style="display: flex; align-items: center; margin-bottom: 15px; cursor: pointer; color: var(--text);">
+<input type="radio" name="timeFormat" value="12" id="timeFormat12" style="margin-right: 8px;">
+<span>12-hour format (9:00 AM, 2:30 PM)</span>
+</label>
+<button id="saveTimeFormat" style="width: 100%;">SAVE TIME FORMAT</button>
+</div>
+</div>
 </div>
 
 </div>

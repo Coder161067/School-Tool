@@ -6,11 +6,19 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!clock) return;
 
   // Initialize clock immediately
-  clock.textContent = new Date().toLocaleTimeString();
+  const now = new Date();
+  clock.textContent = `${now.toLocaleTimeString()} ${now.toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric' 
+  })}`;
 
   // Update every second
   setInterval(() => {
-    clock.textContent = new Date().toLocaleTimeString();
+    const now = new Date();
+    clock.textContent = `${now.toLocaleTimeString()} ${now.toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric' 
+    })}`;
   }, 1000);
 });
 

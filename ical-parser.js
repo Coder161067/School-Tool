@@ -410,16 +410,6 @@ class CalendarDisplay {
             const dayCell = document.createElement('div');
             dayCell.className = 'day';
             
-            // Add date header
-            const dateHeader = document.createElement('div');
-            dateHeader.style.fontWeight = 'bold';
-            dateHeader.style.marginBottom = '5px';
-            dateHeader.textContent = dayDate.toLocaleDateString('en-US', { 
-                month: 'short', 
-                day: 'numeric' 
-            });
-            dayCell.appendChild(dateHeader);
-            
             // Add events for this day
             const dayEvents = weekEvents.filter((event, index) => {
                 const eventDate = new Date(event.start);
@@ -577,56 +567,11 @@ class CalendarDisplay {
         const calendarGrid = document.querySelector('.calendar-grid');
         if (!calendarGrid) return;
         
-        // Create current time indicator
-        const timeIndicator = document.createElement('div');
-        timeIndicator.className = 'current-time-indicator';
-        timeIndicator.style.cssText = `
-            position: absolute;
-            left: ${dayColumn * 20}%; /* Approximate column width */
-            top: 60px; /* Start after headers */
-            width: 2px;
-            height: 80%;
-            background: red;
-            z-index: 10;
-            pointer-events: none;
-        `;
-        
-        // Add current time label
-        const timeLabel = document.createElement('div');
-        timeLabel.className = 'current-time-label';
-        timeLabel.style.cssText = `
-            position: absolute;
-            left: ${dayColumn * 20}%;
-            top: 45px;
-            background: red;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 10px;
-            font-weight: bold;
-            z-index: 11;
-            pointer-events: none;
-        `;
-        timeLabel.textContent = now.toLocaleTimeString('en-AU', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        });
-        
-        // Make calendar grid relative positioned
-        calendarGrid.style.position = 'relative';
-        
         // Remove existing indicator if any
         const existingIndicator = calendarGrid.querySelector('.current-time-indicator');
         const existingLabel = calendarGrid.querySelector('.current-time-label');
         if (existingIndicator) existingIndicator.remove();
         if (existingLabel) existingLabel.remove();
-        
-        // Add new indicator
-        calendarGrid.appendChild(timeIndicator);
-        calendarGrid.appendChild(timeLabel);
-        
-        console.log('Current time indicator added successfully');
     }
 
     // Navigate to previous/next week
