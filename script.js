@@ -120,6 +120,13 @@ text.textContent=t.text
 info.appendChild(subject)
 info.appendChild(text)
 
+// Add description if it exists
+if(t.description && t.description.trim()){
+let description=document.createElement("div")
+description.className="task-description"
+description.textContent=t.description
+info.appendChild(description)
+}
 
 let actions=document.createElement("div")
 actions.className="task-actions"
@@ -821,6 +828,201 @@ renderSubjects()
 
 // Explicitly render stats for stats page
 renderStats()
+
+// CSV EXPORT FUNCTIONALITY
+function exportTasksToCSV() {
+  if (tasks.length === 0) {
+    showNotification('No tasks to export', 'warning')
+    return
+  }
+
+  // Create CSV header
+  let csv = 'text,subject,done,description,deadline,startDate\n'
+  
+  // Add each task as a CSV row
+  tasks.forEach(task => {
+    // Escape commas and quotes in text fields
+    const escapeCSV = (str) => {
+      if (!str) return ''
+      str = str.toString().replace(/"/g, '""')
+      if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+        return `"${str}"`
+      }
+      return str
+    }
+    
+    csv += `${escapeCSV(task.text)},${escapeCSV(task.subject)},${task.done},${escapeCSV(task.description)},${escapeCSV(task.deadline)},${escapeCSV(task.startDate)}\n`
+  })
+  
+  // Create blob and download
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+  const link = document.createElement('a')
+  const url = URL.createObjectURL(blob)
+  
+  // Generate filename with current date
+  const date = new Date().toISOString().slice(0, 10)
+  link.setAttribute('href', url)
+  link.setAttribute('download', `tasks_${date}.csv`)
+  link.style.visibility = 'hidden'
+  
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  
+  showNotification(`Exported ${tasks.length} tasks to CSV`, 'check_circle')
+}
+
+// CSV IMPORT FUNCTIONALITY
+function importTasksFromCSV(file) {
+  if (!file) return
+  
+  const reader = new FileReader()
+  
+  reader.onload = function(e) {
+    try {
+      const csv = e.target.result
+      const lines = csv.split('\n').filter(line => line.trim() !== '')
+      
+      if (lines.length < 2) {
+        showNotification('CSV file is empty or invalid', 'error')
+        return
+      }
+      
+      // Parse header
+      const headers = lines[0].split(',').map(h => h.trim())
+      const expectedHeaders = ['text', 'subject', 'done', 'description', 'deadline', 'startDate']
+      
+      // Validate headers
+      const headerMatch = expectedHeaders.every(header => headers.includes(header))
+      if (!headerMatch) {
+        showNotification('CSV format is invalid. Expected headers: text, subject, done, description, deadline, startDate', 'error')
+        return
+      }
+      
+      // Parse tasks
+      const importedTasks = []
+      let importCount = 0
+      let errorCount = 0
+      
+      for (let i = 1; i < lines.length; i++) {
+        try {
+          const values = parseCSVLine(lines[i])
+          
+          if (values.length < 6) {
+            errorCount++
+            continue
+          }
+          
+          const task = {
+            text: values[0] || '',
+            subject: values[1] || 'General',
+            done: values[2] === 'true' || values[2] === 'TRUE',
+            description: values[3] || '',
+            deadline: values[4] || '',
+            startDate: values[5] || new Date().toISOString()
+          }
+          
+          // Validate required fields
+          if (!task.text.trim()) {
+            errorCount++
+            continue
+          }
+          
+          // Validate subject exists or add it
+          if (!subjects.includes(task.subject)) {
+            subjects.push(task.subject)
+            saveSubjects()
+            renderSubjects()
+          }
+          
+          importedTasks.push(task)
+          importCount++
+          
+        } catch (error) {
+          console.error('Error parsing CSV line:', lines[i], error)
+          errorCount++
+        }
+      }
+      
+      // Add imported tasks to existing tasks
+      if (importCount > 0) {
+        tasks.push(...importedTasks)
+        save()
+        renderTasks()
+        renderStats()
+        showNotification(`Successfully imported ${importCount} tasks${errorCount > 0 ? ` (${errorCount} errors)` : ''}`, 'check_circle')
+      } else {
+        showNotification('No valid tasks found in CSV file', 'error')
+      }
+      
+    } catch (error) {
+      console.error('Error importing CSV:', error)
+      showNotification('Failed to import CSV file', 'error')
+    }
+  }
+  
+  reader.onerror = function() {
+    showNotification('Failed to read CSV file', 'error')
+  }
+  
+  reader.readAsText(file)
+}
+
+// Helper function to parse CSV lines with quoted fields
+function parseCSVLine(line) {
+  const result = []
+  let current = ''
+  let inQuotes = false
+  
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i]
+    
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"'
+        i++ // Skip next quote
+      } else {
+        inQuotes = !inQuotes
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim())
+      current = ''
+    } else {
+      current += char
+    }
+  }
+  
+  result.push(current.trim())
+  return result
+}
+
+// CSV IMPORT/EXPORT EVENT LISTENERS
+const exportBtn = document.getElementById('exportTasks')
+const importBtn = document.getElementById('importTasks')
+const csvFileInput = document.getElementById('csvFileInput')
+
+if (exportBtn) {
+  exportBtn.onclick = exportTasksToCSV
+}
+
+if (importBtn && csvFileInput) {
+  importBtn.onclick = () => {
+    csvFileInput.click()
+  }
+  
+  csvFileInput.onchange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
+        showNotification('Please select a CSV file', 'warning')
+        return
+      }
+      importTasksFromCSV(file)
+    }
+    // Clear the input so the same file can be selected again
+    e.target.value = ''
+  }
+}
 
 // DASHBOARD FUNCTIONALITY
 function renderDashboard(){
