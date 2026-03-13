@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="ical-parser.js"></script>
 </head>
 
@@ -98,6 +99,13 @@
 </header>
 
 <main>
+
+<div class="stats-container">
+  <h2 style="color: var(--text); margin-bottom: 20px;">Tasks per Subject</h2>
+  <div style="background: var(--panel); padding: 20px; border-radius: 8px; height: 400px; position: relative;">
+    <canvas id="subjectChart"></canvas>
+  </div>
+</div>
 
 <div class="stats-grid" id="statsGrid">
 <!-- Stats panels will be dynamically generated here -->

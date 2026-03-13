@@ -69,6 +69,21 @@ if (toggle) {
     document.body.classList.toggle("dark")
 
     localStorage.theme = document.body.classList.contains("dark") ? "dark" : "light"
+    console.log('DEBUG: Theme toggle clicked, new theme:', localStorage.theme);
+
+    // Re-render stats chart to update colors for new theme
+    setTimeout(() => {
+      console.log('Re-rendering stats after theme change...')
+      // Force a reflow to ensure CSS variables are updated
+      document.body.offsetHeight;
+      console.log('DEBUG: About to call renderStats, isDarkMode:', document.body.classList.contains('dark'));
+      renderStats()
+      // Force another re-render after 50ms to ensure chart updates
+      setTimeout(() => {
+        console.log('DEBUG: Forcing second renderStats call');
+        renderStats()
+      }, 50)
+    }, 300)
 
   }
 
@@ -1614,7 +1629,168 @@ function renderStats(){
 
   
 
-  // Create stat panels for each subject
+  // Create bar chart using Chart.js
+
+  const ctx = document.getElementById('subjectChart');
+
+  if (!ctx) return;
+
+  
+
+  // Destroy existing chart if it exists
+
+  if (window.subjectChartInstance) {
+
+    window.subjectChartInstance.destroy();
+
+  }
+
+  
+
+  // Prepare data for Chart.js
+
+  const chartLabels = Object.keys(taskCounts);
+  const chartData = Object.values(taskCounts);
+
+  const isDarkMode = document.body.classList.contains('dark');
+  console.log('DEBUG: isDarkMode from body class:', isDarkMode);
+  console.log('DEBUG: body.classList contains dark:', document.body.classList.contains('dark'));
+  console.log('DEBUG: computed style --text before:', getComputedStyle(document.documentElement).getPropertyValue('--text').trim());
+  
+  // Use hardcoded colors based on theme class for reliability
+  const textColor = isDarkMode ? '#F9F7F7' : '#112D4E';
+  const accentColor = '#3F72AF';
+  const panelColor = isDarkMode ? '#1d3c66' : '#DBE2EF';
+  
+  console.log('DEBUG: Using colors - textColor:', textColor, 'accentColor:', accentColor);
+  console.log('DEBUG: isDarkMode:', isDarkMode, 'textColor should be:', isDarkMode ? '#F9F7F7' : '#112D4E');
+
+  // Use theme-aware colors
+  const backgroundColor = accentColor; // Use theme accent color for bars
+  const gridColor = textColor + '30'; // Semi-transparent text color for grid lines
+  
+  const yBorderColor = isDarkMode ? '#F9F7F7' : '#112D4E';
+  console.log('DEBUG: Y-axis border color will be set to:', yBorderColor);
+
+  window.subjectChartInstance = new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+
+      labels: chartLabels,
+
+      datasets: [{
+
+        label: 'Number of Tasks',
+
+        data: chartData,
+
+        backgroundColor: backgroundColor,
+
+        borderColor: accentColor,
+
+        borderWidth: 2,
+
+        borderRadius: 4,
+
+        borderSkipped: false,
+
+      }]
+
+    },
+
+    options: {
+
+      responsive: true,
+
+      maintainAspectRatio: false,
+
+      plugins: {
+
+        legend: {
+
+          display: false
+
+        },
+
+        title: {
+
+          display: false
+
+        }
+
+      },
+
+      scales: {
+
+        y: {
+
+          beginAtZero: true,
+
+          ticks: {
+
+            stepSize: 1,
+
+            color: textColor,
+
+            font: {
+
+              family: 'JetBrainsMono',
+
+              size: 14
+
+            }
+
+          },
+
+          grid: {
+
+            color: gridColor,
+
+            drawBorder: false,
+
+            borderColor: textColor
+
+          }
+
+        },
+
+        x: {
+
+          ticks: {
+
+            color: textColor,
+
+            font: {
+
+              family: 'JetBrainsMono',
+
+              size: 14
+
+            }
+
+          },
+
+          grid: {
+
+            display: false,
+
+            drawBorder: false
+
+          }
+
+        }
+
+      }
+
+    }
+
+  });
+
+  
+
+  // Keep the original panels below the chart as additional stats
 
   subjects.forEach(subject => {
 
