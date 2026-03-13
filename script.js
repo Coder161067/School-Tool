@@ -1594,6 +1594,9 @@ function renderSubjects(){
 
 
 function renderStats(){
+  console.log('=== renderStats called ===');
+  console.log('Current tasks count:', tasks.length);
+  console.log('Tasks:', tasks);
 
   const statsGrid = document.getElementById("statsGrid")
 
@@ -1643,6 +1646,11 @@ function renderStats(){
 
     window.subjectChartInstance.destroy();
 
+  }
+
+  // Destroy existing burndown chart if it exists
+  if (window.burndownChartInstance) {
+    window.burndownChartInstance.destroy();
   }
 
   
@@ -1812,9 +1820,149 @@ function renderStats(){
 
   })
 
+  // Render burndown chart
+  renderBurndownChart()
+
 }
 
+// BURNDOWN CHART FUNCTION
+function renderBurndownChart() {
+  console.log('=== renderBurndownChart called ===');
+  
+  const burndownCtx = document.getElementById('burndownChart');
+  if (!burndownCtx) {
+    console.log('Burndown chart canvas not found');
+    return;
+  }
 
+  // Destroy existing burndown chart if it exists
+  if (window.burndownChartInstance) {
+    console.log('Destroying existing burndown chart');
+    window.burndownChartInstance.destroy();
+  }
+
+  // Prepare burndown data
+  const tasksByDate = {};
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  // Initialize with today's date
+  const todayStr = today.toISOString().split('T')[0];
+  tasksByDate[todayStr] = tasks.filter(task => !task.done).length;
+  
+  // Calculate previous days (up to 7 days)
+  for (let i = 1; i <= 7; i++) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toISOString().split('T')[0];
+    
+    // Count tasks that existed on that date (created before or on that date)
+    const tasksOnThatDate = tasks.filter(task => {
+      const taskDate = new Date(task.startDate);
+      taskDate.setHours(0, 0, 0, 0);
+      return taskDate <= date;
+    });
+    
+    // Count tasks that were completed by that date
+    const completedByThatDate = tasks.filter(task => {
+      if (!task.done) return false;
+      // For simplicity, assume tasks are completed on their creation date if marked as done
+      const taskDate = new Date(task.startDate);
+      taskDate.setHours(0, 0, 0, 0);
+      return taskDate <= date;
+    });
+    
+    tasksByDate[dateStr] = tasksOnThatDate.length - completedByThatDate.length;
+  }
+
+  // Sort dates and prepare data
+  const sortedDates = Object.keys(tasksByDate).sort();
+  const burndownLabels = sortedDates.map(date => {
+    const d = new Date(date);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  });
+  const burndownData = sortedDates.map(date => tasksByDate[date]);
+
+  console.log('Burndown data prepared:');
+  console.log('Labels:', burndownLabels);
+  console.log('Data:', burndownData);
+
+  const isDarkMode = document.body.classList.contains('dark');
+  const textColor = isDarkMode ? '#F9F7F7' : '#112D4E';
+  const accentColor = '#3F72AF';
+  const gridColor = textColor + '30';
+
+  window.burndownChartInstance = new Chart(burndownCtx, {
+    type: 'line',
+    data: {
+      labels: burndownLabels.reverse(),
+      datasets: [{
+        label: 'Remaining Tasks',
+        data: burndownData.reverse(),
+        borderColor: accentColor,
+        backgroundColor: accentColor + '20',
+        borderWidth: 2,
+        fill: true,
+        tension: 0.1,
+        pointBackgroundColor: accentColor,
+        pointBorderColor: textColor,
+        pointBorderWidth: 2,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        },
+        title: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+            color: textColor,
+            font: {
+              family: 'JetBrainsMono',
+              size: 14
+            }
+          },
+          grid: {
+            color: gridColor,
+            drawBorder: false
+          },
+          title: {
+            display: true,
+            text: 'Tasks Remaining',
+            color: textColor,
+            font: {
+              family: 'JetBrainsMono',
+              size: 12
+            }
+          }
+        },
+        x: {
+          ticks: {
+            color: textColor,
+            font: {
+              family: 'JetBrainsMono',
+              size: 14
+            }
+          },
+          grid: {
+            display: false,
+            drawBorder: false
+          }
+        }
+      }
+    }
+  });
+}
 
 function addSubject(){
 
@@ -1845,7 +1993,6 @@ function addSubject(){
   newSubjectInput.value = ""
 
 }
-
 
 
 function removeSubject(index){
