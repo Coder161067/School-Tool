@@ -2129,308 +2129,154 @@ function exportTasksToCSV() {
 
 
 
-// CSV IMPORT FUNCTIONALITY
+// JSON EXPORT FUNCTIONALITY
 
-function importTasksFromCSV(file) {
+function exportTasksToJSON() {
 
-  if (!file) return
+  if (tasks.length === 0) {
+
+    showNotification('No tasks to export', 'warning')
+
+    return
+
+  }
+
+  // Create JSON data structure
+
+  const exportData = {
+
+    exportDate: new Date().toISOString(),
+
+    tasks: tasks.map(task => ({
+
+      text: task.text,
+
+      subject: task.subject,
+
+      done: task.done,
+
+      description: task.description,
+
+      deadline: task.deadline,
+
+      startDate: task.startDate
+
+    }))
+
+  }
+
+  // Create blob and download
+
+  const jsonString = JSON.stringify(exportData, null, 2)
+
+  const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8;' })
+
+  const link = document.createElement('a')
+
+  const url = URL.createObjectURL(blob)
+
+  const date = new Date().toISOString().split('T')[0]
 
   
+
+  link.setAttribute('href', url)
+
+  link.setAttribute('download', `tasks_${date}.json`)
+
+  link.style.visibility = 'hidden'
+
+  
+
+  document.body.appendChild(link)
+
+  link.click()
+
+  document.body.removeChild(link)
+
+  
+
+  showNotification(`Exported ${tasks.length} tasks to JSON`, 'check_circle')
+
+}
+
+// JSON IMPORT FUNCTIONALITY
+
+function importTasksFromJSON(file) {
+  if (!file) return
 
   const reader = new FileReader()
 
-  
-
   reader.onload = function(e) {
-
     try {
+      const jsonString = e.target.result
+      const importData = JSON.parse(jsonString)
 
-      const csv = e.target.result
-
-      const lines = csv.split('\n').filter(line => line.trim() !== '')
-
-      
-
-      if (lines.length < 2) {
-
-        showNotification('CSV file is empty or invalid', 'error')
-
+      // Validate JSON structure
+      if (!importData.tasks || !Array.isArray(importData.tasks)) {
+        showNotification('JSON format is invalid. Expected {tasks: [...]} structure', 'error')
         return
-
       }
-
-      
-
-      // Parse header
-
-      const headers = lines[0].split(',').map(h => h.trim())
-
-      const expectedHeaders = ['text', 'subject', 'done', 'description', 'deadline', 'startDate']
-
-      
-
-      // Validate headers
-
-      const headerMatch = expectedHeaders.every(header => headers.includes(header))
-
-      if (!headerMatch) {
-
-        showNotification('CSV format is invalid. Expected headers: text, subject, done, description, deadline, startDate', 'error')
-
-        return
-
-      }
-
-      
-
-      // Parse tasks
 
       const importedTasks = []
-
       let importCount = 0
-
       let errorCount = 0
 
-      
-
-      for (let i = 1; i < lines.length; i++) {
-
+      importData.tasks.forEach((taskData, index) => {
         try {
-
-          const values = parseCSVLine(lines[i])
-
-          
-
-          if (values.length < 6) {
-
-            errorCount++
-
-            continue
-
-          }
-
-          
-
           const task = {
-
-            text: values[0] || '',
-
-            subject: values[1] || 'General',
-
-            done: values[2] === 'true' || values[2] === 'TRUE',
-
-            description: values[3] || '',
-
-            deadline: values[4] || '',
-
-            startDate: values[5] || new Date().toISOString()
-
+            text: taskData.text || '',
+            subject: taskData.subject || 'General',
+            done: Boolean(taskData.done),
+            description: taskData.description || '',
+            deadline: taskData.deadline || '',
+            startDate: taskData.startDate || new Date().toISOString()
           }
-
-          
 
           // Validate required fields
-
           if (!task.text.trim()) {
-
             errorCount++
-
-            continue
-
+            return
           }
-
-          
 
           // Validate subject exists or add it
-
           if (!subjects.includes(task.subject)) {
-
             subjects.push(task.subject)
-
             saveSubjects()
-
             renderSubjects()
-
           }
 
-          
-
           importedTasks.push(task)
-
           importCount++
 
-          
-
         } catch (error) {
-
-          console.error('Error parsing CSV line:', lines[i], error)
-
+          console.error('Error parsing JSON task at index', index, error)
           errorCount++
-
         }
-
-      }
-
-      
+      })
 
       // Add imported tasks to existing tasks
-
       if (importCount > 0) {
-
         tasks.push(...importedTasks)
-
         save()
-
         renderTasks()
-
         renderStats()
-
         showNotification(`Successfully imported ${importCount} tasks${errorCount > 0 ? ` (${errorCount} errors)` : ''}`, 'check_circle')
-
       } else {
-
-        showNotification('No valid tasks found in CSV file', 'error')
-
+        showNotification('No valid tasks found in JSON file', 'error')
       }
-
-      
 
     } catch (error) {
-
-      console.error('Error importing CSV:', error)
-
-      showNotification('Failed to import CSV file', 'error')
-
+      console.error('Error importing JSON:', error)
+      showNotification('Failed to import JSON file - invalid JSON format', 'error')
     }
-
   }
-
-  
 
   reader.onerror = function() {
-
-    showNotification('Failed to read CSV file', 'error')
-
+    showNotification('Failed to read JSON file', 'error')
   }
-
-  
 
   reader.readAsText(file)
-
 }
-
-
-
-// Helper function to parse CSV lines with quoted fields
-
-function parseCSVLine(line) {
-
-  const result = []
-
-  let current = ''
-
-  let inQuotes = false
-
-  
-
-  for (let i = 0; i < line.length; i++) {
-
-    const char = line[i]
-
-    
-
-    if (char === '"') {
-
-      if (inQuotes && line[i + 1] === '"') {
-
-        current += '"'
-
-        i++ // Skip next quote
-
-      } else {
-
-        inQuotes = !inQuotes
-
-      }
-
-    } else if (char === ',' && !inQuotes) {
-
-      result.push(current.trim())
-
-      current = ''
-
-    } else {
-
-      current += char
-
-    }
-
-  }
-
-  
-
-  result.push(current.trim())
-
-  return result
-
-}
-
-
-
-// CSV IMPORT/EXPORT EVENT LISTENERS
-
-const exportBtn = document.getElementById('exportTasks')
-
-const importBtn = document.getElementById('importTasks')
-
-const csvFileInput = document.getElementById('csvFileInput')
-
-
-
-if (exportBtn) {
-
-  exportBtn.onclick = exportTasksToCSV
-
-}
-
-
-
-if (importBtn && csvFileInput) {
-
-  importBtn.onclick = () => {
-
-    csvFileInput.click()
-
-  }
-
-  
-
-  csvFileInput.onchange = (e) => {
-
-    const file = e.target.files[0]
-
-    if (file) {
-
-      if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
-
-        showNotification('Please select a CSV file', 'warning')
-
-        return
-
-      }
-
-      importTasksFromCSV(file)
-
-    }
-
-    // Clear the input so the same file can be selected again
-
-    e.target.value = ''
-
-  }
-
-}
-
 
 
 // DELETE ALL TASKS FUNCTIONALITY
