@@ -2019,33 +2019,83 @@ function renderPinnedTasks(){
   
   pinnedContainer.innerHTML = ""
   
-  pinnedTasks.forEach(task => {
-    const taskEl = document.createElement("div")
-    taskEl.className = "pinned-task-item"
+  pinnedTasks.forEach((t, i) => {
+    // Find the original task index
+    const originalIndex = tasks.findIndex(task => task === t)
     
-    const taskInfo = document.createElement("div")
-    taskInfo.className = "pinned-task-info"
+    let task=document.createElement("div")
+    task.className="task"
+    if(t.done) task.classList.add("done")
     
-    const taskName = document.createElement("div")
-    taskName.className = "pinned-task-name"
-    taskName.textContent = task.text
+    let info=document.createElement("div")
+    info.className="task-info"
     
-    const taskSubject = document.createElement("div")
-    taskSubject.className = "pinned-task-subject"
-    taskSubject.textContent = task.subject
+    let subject=document.createElement("div")
+    subject.className="task-subject"
+    subject.textContent=t.subject
     
-    taskInfo.appendChild(taskName)
-    taskInfo.appendChild(taskSubject)
+    let text=document.createElement("div")
+    text.className="task-text"
+    text.textContent=t.text
     
-    if(task.deadline){
-      const deadline = document.createElement("div")
-      deadline.className = "pinned-task-deadline"
-      deadline.textContent = `Due: ${new Date(task.deadline).toLocaleDateString()}`
-      taskInfo.appendChild(deadline)
+    info.appendChild(subject)
+    info.appendChild(text)
+    
+    if(t.description && t.description.trim()){
+      let description=document.createElement("div")
+      description.className="task-description"
+      description.textContent=t.description
+      info.appendChild(description)
     }
     
-    taskEl.appendChild(taskInfo)
-    pinnedContainer.appendChild(taskEl)
+    let actions=document.createElement("div")
+    actions.className="task-actions"
+    
+    let done=document.createElement("button")
+    done.className="done-btn"
+    done.textContent=t.done?"UNDO":"DONE"
+    done.onclick=()=>{
+      if (t.done) {
+        openTaskUndoModal(t, done)
+      } else {
+        openTaskCompleteModal(t, done)
+      }
+    }
+    
+    let edit=document.createElement("button")
+    edit.className="edit-btn"
+    edit.textContent="EDIT"
+    edit.onclick=()=>{
+      console.log('Edit button clicked for task index:', originalIndex)
+      openEditModal(originalIndex)
+    }
+    
+    let del=document.createElement("button")
+    del.className="delete-btn"
+    del.textContent="DELETE"
+    del.onclick=()=>{
+      console.log('Delete button clicked for task index:', originalIndex)
+      openDeleteModal(originalIndex)
+    }
+    
+    // Add pin button
+    let pin=document.createElement("button")
+    pin.className="pin-btn"
+    pin.innerHTML=t.pinned?'<span class="material-symbols-outlined filled">star</span>':'<span class="material-symbols-outlined">star</span>'
+    pin.title=t.pinned?"Unpin task":"Pin task"
+    
+    pin.onclick=()=>{
+      togglePin(originalIndex)
+    }
+    
+    actions.appendChild(done)
+    actions.appendChild(edit)
+    actions.appendChild(del)
+    
+    task.appendChild(info)
+    task.appendChild(pin)
+    task.appendChild(actions)
+    pinnedContainer.appendChild(task)
   })
 }
 
@@ -3029,6 +3079,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Day view elements not found on dashboard');
 
         }
+
+        // Initialize pinned tasks display
+        renderPinnedTasks();
 
     } else {
 

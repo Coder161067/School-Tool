@@ -394,11 +394,21 @@ color:var(--accent);
 
   min-height: 200px;
 
-  max-height: 400px;
+  max-height: 600px;
 
   overflow-y: auto;
 
   width: 100%;
+
+}
+
+.pinned-tasks-panel .tasks {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 20px;
 
 }
 
