@@ -1882,9 +1882,42 @@ opacity:1;
   min-width: 300px;
 }
 
+/* Stats Layout - Left Chart, Right Numbers */
+.stats-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.stats-layout .charts-container {
+  flex: 3;
+  margin-bottom: 0;
+  min-width: 500px;
+}
+
+.stats-layout .stats-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  min-width: 200px;
+}
+
 @media (max-width: 768px) {
   .charts-container {
     flex-direction: column;
+  }
+  
+  .stats-layout {
+    flex-direction: column;
+  }
+  
+  .stats-layout .charts-container {
+    min-width: auto;
+  }
+  
+  .stats-layout .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
   
   .chart-section {

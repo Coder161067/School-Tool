@@ -291,39 +291,14 @@ done.textContent=t.done?"UNDO":"DONE"
 
 done.onclick=()=>{
 
-t.done=!t.done
-
-save()
-
-
-
-// Update only the specific task element instead of re-rendering entire list
-
-const taskElement = done.closest('.task')
-
-if (taskElement) {
-
+  // Show custom confirmation dialog for both marking as done and undoing
   if (t.done) {
-
-    taskElement.classList.add('done')
-
-    done.textContent = 'UNDO'
-
+    // Task is already done, show undo confirmation
+    openTaskUndoModal(t, done)
   } else {
-
-    taskElement.classList.remove('done')
-
-    done.textContent = 'DONE'
-
+    // Task is not done, show completion confirmation
+    openTaskCompleteModal(t, done)
   }
-
-}
-
-
-
-// Update stats without re-rendering tasks
-
-renderStats()
 
 }
 
@@ -943,6 +918,194 @@ if (discardTaskBtn) {
 
 
 
+// TASK COMPLETION MODAL FUNCTIONALITY
+
+const taskCompleteModal = document.getElementById("taskCompleteModal")
+
+const cancelTaskComplete = document.getElementById("cancelTaskComplete")
+
+const confirmTaskComplete = document.getElementById("confirmTaskComplete")
+
+let currentTaskToComplete = null
+
+let currentDoneButton = null
+
+
+
+function openTaskCompleteModal(task, doneButton) {
+
+  console.log('Opening task completion modal')
+
+  currentTaskToComplete = task
+
+  currentDoneButton = doneButton
+
+  taskCompleteModal.style.display = "block"
+
+}
+
+
+
+function closeTaskCompleteModal() {
+
+  console.log('Closing task completion modal')
+
+  taskCompleteModal.style.display = "none"
+
+  currentTaskToComplete = null
+
+  currentDoneButton = null
+
+}
+
+
+
+if (cancelTaskComplete) {
+
+  cancelTaskComplete.onclick = closeTaskCompleteModal
+
+}
+
+
+
+if (confirmTaskComplete) {
+
+  confirmTaskComplete.onclick = () => {
+
+    if (currentTaskToComplete && currentDoneButton) {
+
+      // Mark task as done
+
+      currentTaskToComplete.done = true
+
+      save()
+
+      
+
+      // Update the task element
+
+      const taskElement = currentDoneButton.closest('.task')
+
+      if (taskElement) {
+
+        taskElement.classList.add('done')
+
+        currentDoneButton.textContent = 'UNDO'
+
+      }
+
+      
+
+      // Update stats
+
+      renderStats()
+
+    }
+
+    
+
+    closeTaskCompleteModal()
+
+  }
+
+}
+
+
+
+// TASK UNDO MODAL FUNCTIONALITY
+
+const taskUndoModal = document.getElementById("taskUndoModal")
+
+const cancelTaskUndo = document.getElementById("cancelTaskUndo")
+
+const confirmTaskUndo = document.getElementById("confirmTaskUndo")
+
+let currentTaskToUndo = null
+
+let currentUndoButton = null
+
+
+
+function openTaskUndoModal(task, undoButton) {
+
+  console.log('Opening task undo modal')
+
+  currentTaskToUndo = task
+
+  currentUndoButton = undoButton
+
+  taskUndoModal.style.display = "block"
+
+}
+
+
+
+function closeTaskUndoModal() {
+
+  console.log('Closing task undo modal')
+
+  taskUndoModal.style.display = "none"
+
+  currentTaskToUndo = null
+
+  currentUndoButton = null
+
+}
+
+
+
+if (cancelTaskUndo) {
+
+  cancelTaskUndo.onclick = closeTaskUndoModal
+
+}
+
+
+
+if (confirmTaskUndo) {
+
+  confirmTaskUndo.onclick = () => {
+
+    if (currentTaskToUndo && currentUndoButton) {
+
+      // Mark task as incomplete (undo)
+
+      currentTaskToUndo.done = false
+
+      save()
+
+      
+
+      // Update the task element
+
+      const taskElement = currentUndoButton.closest('.task')
+
+      if (taskElement) {
+
+        taskElement.classList.remove('done')
+
+        currentUndoButton.textContent = 'DONE'
+
+      }
+
+      
+
+      // Update stats
+
+      renderStats()
+
+    }
+
+    
+
+    closeTaskUndoModal()
+
+  }
+
+}
+
+
+
 // Close modal when clicking outside
 
 window.onclick=(event)=>{
@@ -980,6 +1143,22 @@ if(event.target===unnamedTaskModal){
 console.log('Clicked outside unnamed task modal, closing')
 
 closeUnnamedTaskModal()
+
+}
+
+if(event.target===taskCompleteModal){
+
+console.log('Clicked outside task completion modal, closing')
+
+closeTaskCompleteModal()
+
+}
+
+if(event.target===taskUndoModal){
+
+console.log('Clicked outside task undo modal, closing')
+
+closeTaskUndoModal()
 
 }
 
@@ -1089,7 +1268,11 @@ const calendarUrlBtn = document.getElementById("calendarUrlBtn")
 
 function toggleSettingsMenu() {
 
-  settingsMenu.classList.toggle("show")
+  if (settingsMenu) {
+
+    settingsMenu.classList.toggle("show")
+
+  }
 
 }
 
@@ -1097,7 +1280,11 @@ function toggleSettingsMenu() {
 
 function closeSettingsMenu() {
 
-  settingsMenu.classList.remove("show")
+  if (settingsMenu) {
+
+    settingsMenu.classList.remove("show")
+
+  }
 
 }
 
@@ -1622,7 +1809,7 @@ function renderStats(){
 
   tasks.forEach(task => {
 
-    if(taskCounts.hasOwnProperty(task.subject)){
+    if(taskCounts.hasOwnProperty(task.subject) && !task.done){
 
       taskCounts[task.subject]++
 
@@ -1681,7 +1868,7 @@ function renderStats(){
 
       labels: chartLabels,
       datasets: [{
-        label: 'Tasks per Subject',
+        label: 'Incomplete Tasks per Subject',
         data: chartData,
         backgroundColor: backgroundColor,
         borderColor: accentColor,
@@ -2086,6 +2273,12 @@ const deleteAllBtn = document.getElementById('deleteAllTasks')
 
 const deleteAllModal = document.getElementById('deleteAllModal')
 
+const exportBtn = document.getElementById('exportTasks')
+
+const importBtn = document.getElementById('importTasks')
+
+const jsonFileInput = document.getElementById('jsonFileInput')
+
 const deleteAllForm = document.getElementById('deleteAllForm')
 
 const cancelDeleteAll = document.getElementById('cancelDeleteAll')
@@ -2209,6 +2402,48 @@ if (deleteAllForm) {
 }
 
 
+
+// EXPORT AND IMPORT BUTTON EVENT LISTENERS
+
+if (exportBtn) {
+
+  exportBtn.onclick = exportTasksToJSON
+
+}
+
+
+
+if (importBtn) {
+
+  importBtn.onclick = () => {
+
+    jsonFileInput.click()
+
+  }
+
+}
+
+
+
+if (jsonFileInput) {
+
+  jsonFileInput.onchange = (e) => {
+
+    const file = e.target.files[0]
+
+    if (file) {
+
+      importTasksFromJSON(file)
+
+    }
+
+    // Reset the input so the same file can be selected again
+
+    e.target.value = ''
+
+  }
+
+}
 
 // DASHBOARD FUNCTIONALITY
 
