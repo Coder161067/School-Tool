@@ -1668,6 +1668,189 @@ if (saveTimeFormat) {
 
 
 
+// SETTINGS BACKUP AND RESTORE FUNCTIONALITY
+
+function saveAllSettingsToFile() {
+  // Collect all settings
+  const allSettings = {
+    exportDate: new Date().toISOString(),
+    version: "1.0",
+    settings: {
+      theme: localStorage.theme || "light",
+      timeFormat: localStorage.timeFormat || "24",
+      calendarUrl: localStorage.calendarUrl || "",
+      subjects: JSON.parse(localStorage.subjects || '["Math","Science","English","History","General"]'),
+      tasks: JSON.parse(localStorage.tasks || "[]")
+    }
+  };
+  
+  // Create JSON content
+  const jsonString = JSON.stringify(allSettings, null, 2);
+  const blob = new Blob([jsonString], { type: 'application/json' });
+  
+  // Create download link
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  const date = new Date().toISOString().split('T')[0];
+  
+  link.setAttribute('href', url);
+  link.setAttribute('download', `school-tool-settings_${date}.save`);
+  link.style.visibility = 'hidden';
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  showNotification('Settings saved to file successfully', 'check_circle');
+}
+
+function loadSettingsFromFile(file) {
+  if (!file) return;
+  
+  const reader = new FileReader();
+  
+  reader.onload = function(e) {
+    try {
+      const content = e.target.result;
+      const data = JSON.parse(content);
+      
+      // Validate the file structure
+      if (!data.settings) {
+        showNotification('Invalid settings file format', 'error');
+        return;
+      }
+      
+      const settings = data.settings;
+      
+      // Restore theme
+      if (settings.theme) {
+        localStorage.theme = settings.theme;
+        if (settings.theme === "dark") {
+          document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark");
+        }
+      }
+      
+      // Restore time format
+      if (settings.timeFormat) {
+        localStorage.timeFormat = settings.timeFormat;
+        updateTimeFormatDisplay();
+      }
+      
+      // Restore calendar URL
+      if (settings.calendarUrl) {
+        localStorage.calendarUrl = settings.calendarUrl;
+        updateCalendarUrlDisplay();
+      }
+      
+      // Restore subjects
+      if (settings.subjects) {
+        localStorage.subjects = JSON.stringify(settings.subjects);
+        subjects = settings.subjects;
+        renderSubjects();
+      }
+      
+      // Restore tasks
+      if (settings.tasks) {
+        localStorage.tasks = JSON.stringify(settings.tasks);
+        tasks = settings.tasks;
+        renderTasks();
+        renderStats();
+      }
+      
+      showNotification('Settings loaded successfully', 'check_circle');
+      
+    } catch (error) {
+      console.error('Error loading settings file:', error);
+      showNotification('Failed to load settings file', 'error');
+    }
+  };
+  
+  reader.readAsText(file);
+}
+
+// Add file input for loading settings
+function createSettingsFileInput() {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = '.save,application/json';
+  fileInput.style.display = 'none';
+  fileInput.id = 'settingsFileInput';
+  
+  fileInput.onchange = function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      loadSettingsFromFile(file);
+    }
+    // Reset the input
+    this.value = '';
+  };
+  
+  document.body.appendChild(fileInput);
+  return fileInput;
+}
+
+// Initialize file input
+const settingsFileInput = createSettingsFileInput();
+
+// Add save/load buttons to settings menu
+function addSettingsBackupButtons() {
+  const mainSettingsView = document.getElementById("mainSettingsView");
+  if (!mainSettingsView) return;
+  
+  // Check if buttons already exist
+  if (document.getElementById('saveSettingsBtn')) return;
+  
+  // Create backup section
+  const backupSection = document.createElement('div');
+  backupSection.style.cssText = 'margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--panel);';
+  
+  const backupTitle = document.createElement('h4');
+  backupTitle.textContent = 'Backup & Restore';
+  backupTitle.style.cssText = 'margin-bottom: 15px; color: var(--accent);';
+  backupSection.appendChild(backupTitle);
+  
+  // Save button
+  const saveBtn = document.createElement('button');
+  saveBtn.id = 'saveSettingsBtn';
+  saveBtn.textContent = 'SAVE TO FILE';
+  saveBtn.style.cssText = 'width: 100%; margin-bottom: 10px;';
+  saveBtn.onclick = saveAllSettingsToFile;
+  backupSection.appendChild(saveBtn);
+  
+  // Load button
+  const loadBtn = document.createElement('button');
+  loadBtn.id = 'loadSettingsBtn';
+  loadBtn.textContent = 'LOAD FROM FILE';
+  loadBtn.style.cssText = 'width: 100%; background: transparent; color: var(--text); border: 2px solid var(--panel);';
+  loadBtn.onclick = () => {
+    settingsFileInput.click();
+  };
+  backupSection.appendChild(loadBtn);
+  
+  mainSettingsView.appendChild(backupSection);
+}
+
+// Add backup buttons when settings menu is opened
+if (calendarUrlBtn) {
+  calendarUrlBtn.onclick = () => {
+    showCalendarView();
+    addSettingsBackupButtons();
+  };
+}
+
+// Also add when subjects management is opened
+if (subjectsManagementBtn) {
+  subjectsManagementBtn.onclick = () => {
+    showSubjectsView();
+    addSettingsBackupButtons();
+  };
+}
+
+// Initialize backup buttons if settings are already visible
+setTimeout(addSettingsBackupButtons, 100);
+
 // Initialize time format display on page load
 
 updateTimeFormatDisplay()
@@ -2232,168 +2415,11 @@ function exportTasksToCSV() {
 }
 
 
-
-// JSON EXPORT FUNCTIONALITY
-
-function exportTasksToJSON() {
-
-  if (tasks.length === 0) {
-
-    showNotification('No tasks to export', 'warning')
-
-    return
-
-  }
-
-  // Create JSON data structure
-
-  const exportData = {
-
-    exportDate: new Date().toISOString(),
-
-    tasks: tasks.map(task => ({
-
-      text: task.text,
-
-      subject: task.subject,
-
-      done: task.done,
-
-      description: task.description,
-
-      deadline: task.deadline,
-
-      startDate: task.startDate
-
-    }))
-
-  }
-
-  // Create blob and download
-
-  const jsonString = JSON.stringify(exportData, null, 2)
-
-  const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8;' })
-
-  const link = document.createElement('a')
-
-  const url = URL.createObjectURL(blob)
-
-  const date = new Date().toISOString().split('T')[0]
-
-  
-
-  link.setAttribute('href', url)
-
-  link.setAttribute('download', `tasks_${date}.json`)
-
-  link.style.visibility = 'hidden'
-
-  
-
-  document.body.appendChild(link)
-
-  link.click()
-
-  document.body.removeChild(link)
-
-  
-
-  showNotification(`Exported ${tasks.length} tasks to JSON`, 'check_circle')
-
-}
-
-// JSON IMPORT FUNCTIONALITY
-
-function importTasksFromJSON(file) {
-  if (!file) return
-
-  const reader = new FileReader()
-
-  reader.onload = function(e) {
-    try {
-      const jsonString = e.target.result
-      const importData = JSON.parse(jsonString)
-
-      // Validate JSON structure
-      if (!importData.tasks || !Array.isArray(importData.tasks)) {
-        showNotification('JSON format is invalid. Expected {tasks: [...]} structure', 'error')
-        return
-      }
-
-      const importedTasks = []
-      let importCount = 0
-      let errorCount = 0
-
-      importData.tasks.forEach((taskData, index) => {
-        try {
-          const task = {
-            text: taskData.text || '',
-            subject: taskData.subject || 'General',
-            done: Boolean(taskData.done),
-            description: taskData.description || '',
-            deadline: taskData.deadline || '',
-            startDate: taskData.startDate || new Date().toISOString()
-          }
-
-          // Validate required fields
-          if (!task.text.trim()) {
-            errorCount++
-            return
-          }
-
-          // Validate subject exists or add it
-          if (!subjects.includes(task.subject)) {
-            subjects.push(task.subject)
-            saveSubjects()
-            renderSubjects()
-          }
-
-          importedTasks.push(task)
-          importCount++
-
-        } catch (error) {
-          console.error('Error parsing JSON task at index', index, error)
-          errorCount++
-        }
-      })
-
-      // Add imported tasks to existing tasks
-      if (importCount > 0) {
-        tasks.push(...importedTasks)
-        save()
-        renderTasks()
-        renderStats()
-        showNotification(`Successfully imported ${importCount} tasks${errorCount > 0 ? ` (${errorCount} errors)` : ''}`, 'check_circle')
-      } else {
-        showNotification('No valid tasks found in JSON file', 'error')
-      }
-
-    } catch (error) {
-      console.error('Error importing JSON:', error)
-      showNotification('Failed to import JSON file - invalid JSON format', 'error')
-    }
-  }
-
-  reader.onerror = function() {
-    showNotification('Failed to read JSON file', 'error')
-  }
-
-  reader.readAsText(file)
-}
-
-
 // DELETE ALL TASKS FUNCTIONALITY
 
 const deleteAllBtn = document.getElementById('deleteAllTasks')
 
 const deleteAllModal = document.getElementById('deleteAllModal')
-
-const exportBtn = document.getElementById('exportTasks')
-
-const importBtn = document.getElementById('importTasks')
-
-const jsonFileInput = document.getElementById('jsonFileInput')
 
 const deleteAllForm = document.getElementById('deleteAllForm')
 
@@ -2512,50 +2538,6 @@ if (deleteAllForm) {
       showNotification('Incorrect confirmation text', 'error')
 
     }
-
-  }
-
-}
-
-
-
-// EXPORT AND IMPORT BUTTON EVENT LISTENERS
-
-if (exportBtn) {
-
-  exportBtn.onclick = exportTasksToJSON
-
-}
-
-
-
-if (importBtn) {
-
-  importBtn.onclick = () => {
-
-    jsonFileInput.click()
-
-  }
-
-}
-
-
-
-if (jsonFileInput) {
-
-  jsonFileInput.onchange = (e) => {
-
-    const file = e.target.files[0]
-
-    if (file) {
-
-      importTasksFromJSON(file)
-
-    }
-
-    // Reset the input so the same file can be selected again
-
-    e.target.value = ''
 
   }
 
