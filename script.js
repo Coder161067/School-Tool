@@ -1785,18 +1785,7 @@ function renderStats(){
   console.log('Current tasks count:', tasks.length);
   console.log('Tasks:', tasks);
 
-  const statsGrid = document.getElementById("statsGrid")
-
-  if(!statsGrid) return
-
-  
-
-  statsGrid.innerHTML = ""
-
-  
-
   // Count tasks per subject
-
   const taskCounts = {}
 
   subjects.forEach(subject => {
@@ -1804,7 +1793,6 @@ function renderStats(){
     taskCounts[subject] = 0
 
   })
-
   
 
   tasks.forEach(task => {
@@ -1816,15 +1804,12 @@ function renderStats(){
     }
 
   })
-
   
 
   // Create bar chart using Chart.js
-
   const ctx = document.getElementById('subjectChart');
 
   if (!ctx) return;
-
   
 
   // Destroy existing chart if it exists
@@ -1922,39 +1907,18 @@ function renderStats(){
           grid: {
             display: false,
             drawBorder: false
+          },
+          border: {
+            display: false
           }
         }
       }
     }
   })
-
-  // Keep the original panels below the chart as additional stats
-
-  subjects.forEach(subject => {
-
-    const count = taskCounts[subject]
-
-    const panel = document.createElement("div")
-
-    panel.className = "panel"
-
-    panel.innerHTML = `
-
-      <h3>${subject.toUpperCase()} TASKS</h3>
-
-      <div>${count}</div>
-
-    `
-
-    statsGrid.appendChild(panel)
-
-  })
-
 }
 
-function addSubject(){
 
-  const newSubjectInput = document.getElementById("newSubject")
+function addSubject(){
 
   const subject = newSubjectInput.value.trim()
 
@@ -1992,7 +1956,6 @@ function removeSubject(index){
   renderSubjects()
 
 }
-
 
 
 const addSubjectBtn = document.getElementById("addSubject")
