@@ -1915,8 +1915,161 @@ function renderStats(){
       }
     }
   })
+  
+  // Also render task progress bars
+  renderTaskProgress();
 }
 
+// Progress Bars for Task Completion
+function renderTaskProgress() {
+  console.log('=== renderTaskProgress called ===');
+  
+  const progressContainer = document.getElementById('taskProgressBars');
+  if (!progressContainer) return;
+  
+  // Filter incomplete tasks with valid deadlines
+  const incompleteTasks = tasks.filter(task => 
+    !task.done && 
+    task.deadline && 
+    task.deadline.trim() !== '' &&
+    task.text && 
+    task.text.trim() !== ''
+  );
+  
+  console.log('Found incomplete tasks:', incompleteTasks.length);
+  console.log('Sample task data:', incompleteTasks[0]);
+  
+  if (incompleteTasks.length === 0) {
+    progressContainer.innerHTML = '<div class="no-tasks-message">No incomplete tasks with deadlines found</div>';
+    return;
+  }
+  
+  // Calculate progress and sort by due date (closest first)
+  const tasksWithProgress = incompleteTasks.map(task => {
+    const progress = calculateTaskProgress(task);
+    return { ...task, progress };
+  }).sort((a, b) => {
+    // Sort by days remaining (ascending - closest due date first)
+    return a.progress.daysRemaining - b.progress.daysRemaining;
+  });
+  
+  // Render progress bars
+  progressContainer.innerHTML = '';
+  
+  tasksWithProgress.forEach(task => {
+    const progressElement = createProgressElement(task);
+    progressContainer.appendChild(progressElement);
+  });
+}
+
+function calculateTaskProgress(task) {
+  const now = new Date();
+  const current = now.getTime();
+  
+  console.log('=== TASK:', task.text, '===');
+  console.log('Current date:', now.toISOString());
+  console.log('Task deadline:', task.deadline);
+  console.log('Task startDate:', task.startDate);
+  
+  // Parse deadline
+  let deadlineDate;
+  if (task.deadline && task.deadline.includes(' ')) {
+    const [date, time] = task.deadline.split(' ');
+    deadlineDate = new Date(`${date}T${time}`);
+  } else if (task.deadline) {
+    deadlineDate = new Date(task.deadline);
+  } else {
+    console.log('No deadline found');
+    return { percentage: 0, daysRemaining: Infinity, status: 'no-deadline' };
+  }
+  
+  console.log('Parsed deadline date:', deadlineDate.toISOString());
+  
+  // Simple approach: use deadline - current time for progress
+  const totalDaysUntilDeadline = Math.ceil((deadlineDate.getTime() - current) / (24 * 60 * 60 * 1000));
+  console.log('Days until deadline:', totalDaysUntilDeadline);
+  
+  // If no start date or start date is problematic, use a simple approach
+  let progressPercentage = 0;
+  
+  if (totalDaysUntilDeadline <= 0) {
+    // Overdue
+    progressPercentage = 100;
+  } else if (totalDaysUntilDeadline <= 1) {
+    // Due today or tomorrow
+    progressPercentage = 90;
+  } else if (totalDaysUntilDeadline <= 3) {
+    progressPercentage = 70;
+  } else if (totalDaysUntilDeadline <= 7) {
+    progressPercentage = 50;
+  } else if (totalDaysUntilDeadline <= 14) {
+    progressPercentage = 30;
+  } else if (totalDaysUntilDeadline <= 30) {
+    progressPercentage = 20;
+  } else {
+    // More than 30 days away
+    progressPercentage = 10;
+  }
+  
+  console.log('Calculated progress percentage:', progressPercentage);
+  
+  return {
+    percentage: progressPercentage,
+    daysRemaining: totalDaysUntilDeadline,
+    status: totalDaysUntilDeadline <= 3 ? 'urgent' : totalDaysUntilDeadline <= 7 ? 'warning' : 'safe',
+    startDate: deadlineDate.toLocaleDateString(),
+    deadline: deadlineDate.toLocaleDateString()
+  };
+}
+
+function createProgressElement(task) {
+  const progress = task.progress;
+  const item = document.createElement('div');
+  item.className = 'task-progress-item';
+  
+  // Determine status text and bar class
+  let statusText = '';
+  let barClass = 'safe';
+  
+  if (progress.daysRemaining <= 0) {
+    statusText = 'OVERDUE';
+    barClass = 'urgent';
+  } else if (progress.daysRemaining === 1) {
+    statusText = '1 DAY LEFT';
+    barClass = 'urgent';
+  } else {
+    statusText = `${progress.daysRemaining} DAYS LEFT`;
+    if (progress.daysRemaining <= 3) {
+      barClass = 'urgent';
+    } else if (progress.daysRemaining <= 7) {
+      barClass = 'warning';
+    }
+  }
+  
+  // Format percentage - show decimal for very small percentages
+  let displayPercentage = progress.percentage;
+  if (progress.percentage < 1 && progress.percentage > 0) {
+    displayPercentage = progress.percentage.toFixed(1);
+  } else {
+    displayPercentage = Math.round(progress.percentage);
+  }
+  
+  item.innerHTML = `
+    <div class="task-progress-header">
+      <div class="task-progress-title">${task.text}</div>
+      <div class="task-progress-info">
+        <span class="task-progress-subject">${task.subject}</span>
+        <span class="task-progress-days">${statusText}</span>
+      </div>
+    </div>
+    <div class="task-progress-bar-container">
+      <div class="task-progress-bar ${barClass}" style="width: ${progress.percentage}%"></div>
+      <div class="task-progress-percentage">${displayPercentage}%</div>
+    </div>
+  `;
+  
+  return item;
+}
 
 function addSubject(){
 

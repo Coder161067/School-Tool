@@ -1894,6 +1894,27 @@ opacity:1;
   max-width: 1000px;
 }
 
+/* Remove rounded corners from stats page elements */
+.stats-layout .chart-section > div {
+  border-radius: 0 !important;
+}
+
+.stats-layout .progress-section > div {
+  border-radius: 0 !important;
+}
+
+.stats-layout .task-progress-item {
+  border-radius: 0 !important;
+}
+
+.stats-layout .task-progress-bar-container {
+  border-radius: 0 !important;
+}
+
+.stats-layout .task-progress-bar {
+  border-radius: 0 !important;
+}
+
 @media (max-width: 768px) {
   .charts-container {
     flex-direction: column;
@@ -1914,4 +1935,100 @@ opacity:1;
   .chart-section {
     min-width: 100%;
   }
+}
+
+/* Progress Bars Styling */
+.progress-section {
+  margin-top: 30px;
+}
+
+.task-progress-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: var(--bg);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+}
+
+.task-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.task-progress-title {
+  font-weight: bold;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.task-progress-info {
+  display: flex;
+  gap: 15px;
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.task-progress-subject {
+  padding: 2px 8px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.task-progress-days {
+  font-weight: bold;
+}
+
+.task-progress-bar-container {
+  width: 100%;
+  height: 20px;
+  background: var(--panel);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.task-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #5a8fd8);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+  position: relative;
+  min-width: 2px; /* Ensure very small percentages are still visible */
+}
+
+.task-progress-bar.urgent {
+  background: linear-gradient(90deg, #e74c3c, #c0392b);
+}
+
+.task-progress-bar.warning {
+  background: linear-gradient(90deg, #f39c12, #e67e22);
+}
+
+.task-progress-bar.safe {
+  background: linear-gradient(90deg, var(--accent), #5a8fd8);
+}
+
+.task-progress-percentage {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--text);
+  text-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+.no-tasks-message {
+  text-align: center;
+  color: var(--text);
+  opacity: 0.7;
+  padding: 40px;
+  font-style: italic;
 }
