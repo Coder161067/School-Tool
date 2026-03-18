@@ -1891,7 +1891,7 @@ opacity:1;
 .stats-layout .charts-container {
   flex: 1;
   margin-bottom: 0;
-  max-width: 1000px;
+  max-width: 1200px;
 }
 
 /* Remove rounded corners from stats page elements */
