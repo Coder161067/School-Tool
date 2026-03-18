@@ -1,5 +1,5 @@
 {
-  "exportDate": "2026-03-18T05:11:08.811Z",
+  "exportDate": "2026-03-18T23:14:37.171Z",
   "version": "1.0",
   "settings": {
     "theme": "dark",
@@ -19,7 +19,8 @@
         "done": false,
         "description": "Problems 1-25 from the textbook, focus on integration techniques",
         "deadline": "2026-03-20 23:59",
-        "startDate": "2026-03-18T09:00:00.000Z"
+        "startDate": "2026-03-18T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Write chemistry lab report",
@@ -27,7 +28,8 @@
         "done": false,
         "description": "Include hypothesis, methodology, results, and conclusion sections",
         "deadline": "2026-03-22 17:00",
-        "startDate": "2026-03-18T10:30:00.000Z"
+        "startDate": "2026-03-18T10:30:00.000Z",
+        "pinned": true
       },
       {
         "text": "Read Shakespeare's Hamlet Act 1",
@@ -35,7 +37,8 @@
         "done": true,
         "description": "Take notes on character development and themes",
         "deadline": "2026-03-15 14:00",
-        "startDate": "2026-03-17T08:00:00.000Z"
+        "startDate": "2026-03-17T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Research World War II causes",
@@ -43,7 +46,8 @@
         "done": false,
         "description": "Find at least 5 primary sources for the essay",
         "deadline": "2026-03-25 16:00",
-        "startDate": "2026-03-18T11:00:00.000Z"
+        "startDate": "2026-03-18T11:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Organize study schedule",
@@ -51,7 +55,8 @@
         "done": false,
         "description": "Create weekly study plan for all subjects",
         "deadline": "2026-03-18 20:00",
-        "startDate": "2026-03-16T07:00:00.000Z"
+        "startDate": "2026-03-16T07:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Solve quadratic equations worksheet",
@@ -59,7 +64,8 @@
         "done": true,
         "description": "Complete all 20 problems, show all work",
         "deadline": "2026-03-21 15:00",
-        "startDate": "2026-03-19T09:00:00.000Z"
+        "startDate": "2026-03-19T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Biology quiz preparation",
@@ -67,7 +73,8 @@
         "done": false,
         "description": "Study chapters 8-10 on cellular respiration",
         "deadline": "2026-03-23 10:00",
-        "startDate": "2026-03-18T14:00:00.000Z"
+        "startDate": "2026-03-18T14:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Essay on American Dream",
@@ -75,7 +82,8 @@
         "done": false,
         "description": "5-page essay with MLA citations, due next week",
         "deadline": "2026-03-28 23:59",
-        "startDate": "2026-03-20T08:30:00.000Z"
+        "startDate": "2026-03-20T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Create timeline of Renaissance",
@@ -83,7 +91,8 @@
         "done": true,
         "description": "Include major artists, inventions, and events",
         "deadline": "2026-03-18 12:00",
-        "startDate": "2026-03-15T10:00:00.000Z"
+        "startDate": "2026-03-15T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Buy school supplies",
@@ -91,7 +100,8 @@
         "done": false,
         "description": "Notebooks, pens, calculator batteries",
         "deadline": "2026-03-24 18:00",
-        "startDate": "2026-03-18T16:00:00.000Z"
+        "startDate": "2026-03-18T16:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Geometry proof practice",
@@ -99,7 +109,8 @@
         "done": false,
         "description": "Complete 10 triangle congruence proofs",
         "deadline": "2026-03-26 14:30",
-        "startDate": "2026-03-21T10:00:00.000Z"
+        "startDate": "2026-03-21T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Physics experiment write-up",
@@ -107,7 +118,8 @@
         "done": false,
         "description": "Document pendulum motion experiment with graphs",
         "deadline": "2026-03-27 16:00",
-        "startDate": "2026-03-22T09:30:00.000Z"
+        "startDate": "2026-03-22T09:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Poetry analysis presentation",
@@ -115,7 +127,8 @@
         "done": false,
         "description": "5-minute presentation on Robert Frost's work",
         "deadline": "2026-03-30 13:00",
-        "startDate": "2026-03-23T11:00:00.000Z"
+        "startDate": "2026-03-23T11:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Cold War research project",
@@ -123,7 +136,8 @@
         "done": false,
         "description": "Create presentation with at least 15 slides",
         "deadline": "2026-04-02 15:00",
-        "startDate": "2026-03-24T08:00:00.000Z"
+        "startDate": "2026-03-24T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Clean backpack",
@@ -131,7 +145,8 @@
         "done": false,
         "description": "Remove old papers and organize supplies",
         "deadline": "2026-03-25 19:00",
-        "startDate": "2026-03-25T17:00:00.000Z"
+        "startDate": "2026-03-25T17:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Algebra test review",
@@ -139,7 +154,8 @@
         "done": false,
         "description": "Review chapters 3-4, practice test questions",
         "deadline": "2026-03-29 11:00",
-        "startDate": "2026-03-26T07:30:00.000Z"
+        "startDate": "2026-03-26T07:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Environmental science project",
@@ -147,7 +163,8 @@
         "done": false,
         "description": "Research local water quality issues",
         "deadline": "2026-04-05 17:00",
-        "startDate": "2026-03-27T09:00:00.000Z"
+        "startDate": "2026-03-27T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Vocabulary quiz study",
@@ -155,7 +172,8 @@
         "done": true,
         "description": "Memorize 50 SAT vocabulary words",
         "deadline": "2026-03-31 10:00",
-        "startDate": "2026-03-28T12:00:00.000Z"
+        "startDate": "2026-03-28T12:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Ancient civilizations map",
@@ -163,7 +181,8 @@
         "done": true,
         "description": "Label major empires and trade routes",
         "deadline": "2026-04-03 14:00",
-        "startDate": "2026-03-29T10:30:00.000Z"
+        "startDate": "2026-03-29T10:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Schedule dentist appointment",
@@ -171,7 +190,8 @@
         "done": true,
         "description": "Call dentist office for checkup",
         "deadline": "2026-04-01 12:00",
-        "startDate": "2026-03-30T08:00:00.000Z"
+        "startDate": "2026-03-30T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Trigonometry homework set",
@@ -179,7 +199,8 @@
         "done": true,
         "description": "Complete problems involving sine, cosine, tangent",
         "deadline": "2026-04-04 16:00",
-        "startDate": "2026-03-31T11:00:00.000Z"
+        "startDate": "2026-03-31T11:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Chemistry lab preparation",
@@ -187,7 +208,8 @@
         "done": false,
         "description": "Read lab manual and prepare pre-lab questions",
         "deadline": "2026-04-06 09:00",
-        "startDate": "2026-04-01T08:30:00.000Z"
+        "startDate": "2026-04-01T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Book report on 1984",
@@ -195,7 +217,8 @@
         "done": true,
         "description": "3-page report with character analysis",
         "deadline": "2026-04-08 15:00",
-        "startDate": "2026-04-02T09:00:00.000Z"
+        "startDate": "2026-04-02T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Industrial Revolution essay",
@@ -203,7 +226,8 @@
         "done": true,
         "description": "Discuss social and economic impacts",
         "deadline": "2026-04-10 17:00",
-        "startDate": "2026-04-03T10:00:00.000Z"
+        "startDate": "2026-04-03T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Update resume",
@@ -211,7 +235,8 @@
         "done": true,
         "description": "Add recent volunteer experience",
         "deadline": "2026-04-05 20:00",
-        "startDate": "2026-04-04T14:00:00.000Z"
+        "startDate": "2026-04-04T14:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Statistics project data analysis",
@@ -219,7 +244,8 @@
         "done": false,
         "description": "Analyze survey data and create charts",
         "deadline": "2026-04-12 14:00",
-        "startDate": "2026-04-05T09:00:00.000Z"
+        "startDate": "2026-04-05T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Biology dissection lab",
@@ -227,7 +253,8 @@
         "done": false,
         "description": "Frog dissection with labeled diagrams",
         "deadline": "2026-04-09 13:00",
-        "startDate": "2026-04-06T08:00:00.000Z"
+        "startDate": "2026-04-06T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Creative writing portfolio",
@@ -235,7 +262,8 @@
         "done": true,
         "description": "Submit 3 original poems and 2 short stories",
         "deadline": "2026-04-15 16:00",
-        "startDate": "2026-04-07T11:00:00.000Z"
+        "startDate": "2026-04-07T11:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Civil Rights Movement research",
@@ -243,7 +271,8 @@
         "done": false,
         "description": "Interview family members about their experiences",
         "deadline": "2026-04-18 15:00",
-        "startDate": "2026-04-08T09:30:00.000Z"
+        "startDate": "2026-04-08T09:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Organize digital files",
@@ -251,7 +280,8 @@
         "done": false,
         "description": "Clean up desktop and organize school folders",
         "deadline": "2026-04-07 18:00",
-        "startDate": "2026-04-07T15:00:00.000Z"
+        "startDate": "2026-04-07T15:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Linear algebra problem set",
@@ -259,7 +289,8 @@
         "done": false,
         "description": "Matrix operations and vector spaces",
         "deadline": "2026-04-16 12:00",
-        "startDate": "2026-04-09T10:00:00.000Z"
+        "startDate": "2026-04-09T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Physics lab report - optics",
@@ -267,7 +298,8 @@
         "done": false,
         "description": "Refraction and reflection experiments",
         "deadline": "2026-04-14 17:00",
-        "startDate": "2026-04-10T08:30:00.000Z"
+        "startDate": "2026-04-10T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Shakespeare monologue memorization",
@@ -275,7 +307,8 @@
         "done": false,
         "description": "Memorize 'To be or not to be' soliloquy",
         "deadline": "2026-04-20 10:00",
-        "startDate": "2026-04-11T07:00:00.000Z"
+        "startDate": "2026-04-11T07:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Medieval history presentation",
@@ -283,7 +316,8 @@
         "done": false,
         "description": "10-minute presentation on castle architecture",
         "deadline": "2026-04-22 14:00",
-        "startDate": "2026-04-12T09:00:00.000Z"
+        "startDate": "2026-04-12T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Plan summer activities",
@@ -291,7 +325,8 @@
         "done": false,
         "description": "Research summer programs and internships",
         "deadline": "2026-04-25 20:00",
-        "startDate": "2026-04-13T16:00:00.000Z"
+        "startDate": "2026-04-13T16:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Calculus exam preparation",
@@ -299,7 +334,8 @@
         "done": false,
         "description": "Review derivatives and integrals",
         "deadline": "2026-04-23 11:00",
-        "startDate": "2026-04-14T08:00:00.000Z"
+        "startDate": "2026-04-14T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Geology field trip report",
@@ -307,7 +343,8 @@
         "done": false,
         "description": "Write report on local rock formations",
         "deadline": "2026-04-26 15:00",
-        "startDate": "2026-04-15T09:30:00.000Z"
+        "startDate": "2026-04-15T09:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Debate team preparation",
@@ -315,7 +352,8 @@
         "done": true,
         "description": "Research arguments for upcoming debate",
         "deadline": "2026-04-28 16:00",
-        "startDate": "2026-04-16T10:00:00.000Z"
+        "startDate": "2026-04-16T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "World War I project",
@@ -323,7 +361,8 @@
         "done": false,
         "description": "Create timeline of major battles",
         "deadline": "2026-05-01 14:00",
-        "startDate": "2026-04-17T08:30:00.000Z"
+        "startDate": "2026-04-17T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Volunteer hours documentation",
@@ -331,7 +370,8 @@
         "done": false,
         "description": "Log community service hours for scholarship",
         "deadline": "2026-04-30 17:00",
-        "startDate": "2026-04-18T12:00:00.000Z"
+        "startDate": "2026-04-18T12:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Probability and statistics quiz",
@@ -339,7 +379,8 @@
         "done": false,
         "description": "Study normal distribution and hypothesis testing",
         "deadline": "2026-05-02 13:00",
-        "startDate": "2026-04-19T09:00:00.000Z"
+        "startDate": "2026-04-19T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Environmental science poster",
@@ -347,7 +388,8 @@
         "done": false,
         "description": "Create poster on climate change impacts",
         "deadline": "2026-05-03 16:00",
-        "startDate": "2026-04-20T10:30:00.000Z"
+        "startDate": "2026-04-20T10:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Literature review essay",
@@ -355,7 +397,8 @@
         "done": false,
         "description": "Review 5 contemporary novels",
         "deadline": "2026-05-06 17:00",
-        "startDate": "2026-04-21T11:00:00.000Z"
+        "startDate": "2026-04-21T11:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Ancient Rome research",
@@ -363,7 +406,8 @@
         "done": false,
         "description": "Focus on Roman engineering achievements",
         "deadline": "2026-05-08 15:00",
-        "startDate": "2026-04-22T09:00:00.000Z"
+        "startDate": "2026-04-22T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "College application essays",
@@ -371,7 +415,8 @@
         "done": false,
         "description": "Draft personal statements for 3 colleges",
         "deadline": "2026-05-10 20:00",
-        "startDate": "2026-04-23T13:00:00.000Z"
+        "startDate": "2026-04-23T13:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Geometry final review",
@@ -379,7 +424,8 @@
         "done": false,
         "description": "Review all chapters and practice exams",
         "deadline": "2026-05-12 14:00",
-        "startDate": "2026-04-24T08:00:00.000Z"
+        "startDate": "2026-04-24T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Chemistry final project",
@@ -387,7 +433,8 @@
         "done": true,
         "description": "Research alternative energy sources",
         "deadline": "2026-05-14 16:00",
-        "startDate": "2026-04-25T09:30:00.000Z"
+        "startDate": "2026-04-25T09:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Poetry anthology submission",
@@ -395,7 +442,8 @@
         "done": false,
         "description": "Submit 5 poems for school literary magazine",
         "deadline": "2026-05-16 12:00",
-        "startDate": "2026-04-26T10:00:00.000Z"
+        "startDate": "2026-04-26T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "American Revolution debate prep",
@@ -403,7 +451,8 @@
         "done": false,
         "description": "Prepare arguments for loyalist vs patriot debate",
         "deadline": "2026-05-18 13:00",
-        "startDate": "2026-04-27T08:30:00.000Z"
+        "startDate": "2026-04-27T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Summer job applications",
@@ -411,7 +460,8 @@
         "done": false,
         "description": "Apply to 5 local businesses for summer work",
         "deadline": "2026-05-20 18:00",
-        "startDate": "2026-04-28T14:00:00.000Z"
+        "startDate": "2026-04-28T14:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Pre-calculus final exam",
@@ -419,7 +469,8 @@
         "done": false,
         "description": "Study logarithms and exponential functions",
         "deadline": "2026-05-22 11:00",
-        "startDate": "2026-04-29T07:30:00.000Z"
+        "startDate": "2026-04-29T07:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Physics final project",
@@ -427,7 +478,8 @@
         "done": false,
         "description": "Build simple electric motor",
         "deadline": "2026-05-24 15:00",
-        "startDate": "2026-04-30T09:00:00.000Z"
+        "startDate": "2026-04-30T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Senior thesis research",
@@ -435,7 +487,8 @@
         "done": false,
         "description": "Begin research for 20-page thesis paper",
         "deadline": "2026-06-01 17:00",
-        "startDate": "2026-05-01T10:00:00.000Z"
+        "startDate": "2026-05-01T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Modern history documentary",
@@ -443,7 +496,8 @@
         "done": false,
         "description": "Create 10-minute documentary on civil rights era",
         "deadline": "2026-06-03 16:00",
-        "startDate": "2026-05-02T08:00:00.000Z"
+        "startDate": "2026-05-02T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Driver's ed course registration",
@@ -451,7 +505,8 @@
         "done": false,
         "description": "Sign up for summer driving school",
         "deadline": "2026-05-25 12:00",
-        "startDate": "2026-05-03T09:00:00.000Z"
+        "startDate": "2026-05-03T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "AP Calculus practice test",
@@ -459,7 +514,8 @@
         "done": false,
         "description": "Complete full AP exam practice test",
         "deadline": "2026-06-05 14:00",
-        "startDate": "2026-05-04T08:30:00.000Z"
+        "startDate": "2026-05-04T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Biology final exam prep",
@@ -467,7 +523,8 @@
         "done": false,
         "description": "Review all units and practice labs",
         "deadline": "2026-06-07 13:00",
-        "startDate": "2026-05-05T09:00:00.000Z"
+        "startDate": "2026-05-05T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Creative writing workshop",
@@ -475,7 +532,8 @@
         "done": false,
         "description": "Attend weekend writing workshop",
         "deadline": "2026-06-10 10:00",
-        "startDate": "2026-05-06T07:00:00.000Z"
+        "startDate": "2026-05-06T07:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Historical site visit report",
@@ -483,7 +541,8 @@
         "done": false,
         "description": "Visit local museum and write report",
         "deadline": "2026-06-12 15:00",
-        "startDate": "2026-05-07T10:30:00.000Z"
+        "startDate": "2026-05-07T10:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Senior portrait appointment",
@@ -491,7 +550,8 @@
         "done": false,
         "description": "Schedule yearbook photo session",
         "deadline": "2026-05-30 16:00",
-        "startDate": "2026-05-08T11:00:00.000Z"
+        "startDate": "2026-05-08T11:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Math competition preparation",
@@ -499,7 +559,8 @@
         "done": false,
         "description": "Practice for regional math contest",
         "deadline": "2026-06-14 12:00",
-        "startDate": "2026-05-09T08:00:00.000Z"
+        "startDate": "2026-05-09T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Science fair project display",
@@ -507,7 +568,8 @@
         "done": false,
         "description": "Create display board for experiment",
         "deadline": "2026-06-16 17:00",
-        "startDate": "2026-05-10T09:30:00.000Z"
+        "startDate": "2026-05-10T09:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Journalism article submission",
@@ -515,7 +577,8 @@
         "done": false,
         "description": "Write article for school newspaper",
         "deadline": "2026-06-18 14:00",
-        "startDate": "2026-05-11T10:00:00.000Z"
+        "startDate": "2026-05-11T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Oral history project",
@@ -523,7 +586,8 @@
         "done": false,
         "description": "Interview elderly community members",
         "deadline": "2026-06-20 16:00",
-        "startDate": "2026-05-12T08:30:00.000Z"
+        "startDate": "2026-05-12T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Graduation party planning",
@@ -531,7 +595,8 @@
         "done": false,
         "description": "Plan venue and guest list for graduation",
         "deadline": "2026-06-25 19:00",
-        "startDate": "2026-05-13T12:00:00.000Z"
+        "startDate": "2026-05-13T12:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Final math portfolio",
@@ -539,7 +604,8 @@
         "done": false,
         "description": "Compile best work from entire year",
         "deadline": "2026-06-28 15:00",
-        "startDate": "2026-05-14T09:00:00.000Z"
+        "startDate": "2026-05-14T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Environmental science field trip",
@@ -547,7 +613,8 @@
         "done": false,
         "description": "Trip to local nature preserve",
         "deadline": "2026-06-30 13:00",
-        "startDate": "2026-05-15T07:30:00.000Z"
+        "startDate": "2026-05-15T07:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Yearbook dedication writing",
@@ -555,7 +622,8 @@
         "done": false,
         "description": "Write senior dedication for yearbook",
         "deadline": "2026-07-02 11:00",
-        "startDate": "2026-05-16T08:00:00.000Z"
+        "startDate": "2026-05-16T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "History documentary review",
@@ -563,7 +631,8 @@
         "done": false,
         "description": "Watch and review historical documentary",
         "deadline": "2026-07-05 14:00",
-        "startDate": "2026-05-17T10:30:00.000Z"
+        "startDate": "2026-05-17T10:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Summer reading list",
@@ -571,7 +640,8 @@
         "done": false,
         "description": "Choose and order books for summer reading",
         "deadline": "2026-07-08 17:00",
-        "startDate": "2026-05-18T13:00:00.000Z"
+        "startDate": "2026-05-18T13:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Scholarship applications",
@@ -579,7 +649,8 @@
         "done": false,
         "description": "Complete 5 scholarship applications",
         "deadline": "2026-07-10 20:00",
-        "startDate": "2026-05-19T14:00:00.000Z"
+        "startDate": "2026-05-19T14:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "AP Biology review session",
@@ -587,7 +658,8 @@
         "done": false,
         "description": "Attend weekend AP review workshop",
         "deadline": "2026-07-12 16:00",
-        "startDate": "2026-05-20T09:00:00.000Z"
+        "startDate": "2026-05-20T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "College campus visits",
@@ -595,7 +667,8 @@
         "done": false,
         "description": "Schedule visits to 3 prospective colleges",
         "deadline": "2026-07-15 18:00",
-        "startDate": "2026-05-21T10:00:00.000Z"
+        "startDate": "2026-05-21T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Final transcript request",
@@ -603,7 +676,8 @@
         "done": false,
         "description": "Request official transcripts for college applications",
         "deadline": "2026-07-18 15:00",
-        "startDate": "2026-05-22T11:00:00.000Z"
+        "startDate": "2026-05-22T11:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Senior project presentation",
@@ -611,7 +685,8 @@
         "done": false,
         "description": "Present final senior project to faculty",
         "deadline": "2026-07-20 13:00",
-        "startDate": "2026-05-23T08:30:00.000Z"
+        "startDate": "2026-05-23T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "History department awards",
@@ -619,7 +694,8 @@
         "done": false,
         "description": "Submit application for history scholarship",
         "deadline": "2026-07-22 14:00",
-        "startDate": "2026-05-24T09:00:00.000Z"
+        "startDate": "2026-05-24T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Summer internship prep",
@@ -627,7 +703,8 @@
         "done": false,
         "description": "Prepare resume and cover letters",
         "deadline": "2026-07-25 17:00",
-        "startDate": "2026-05-25T12:00:00.000Z"
+        "startDate": "2026-05-25T12:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Graduation speech draft",
@@ -635,7 +712,8 @@
         "done": false,
         "description": "Write potential graduation speech",
         "deadline": "2026-07-28 12:00",
-        "startDate": "2026-05-26T10:00:00.000Z"
+        "startDate": "2026-05-26T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Algebra tutoring session",
@@ -643,7 +721,8 @@
         "done": false,
         "description": "Help underclassmen with algebra homework",
         "deadline": "2026-07-30 15:00",
-        "startDate": "2026-05-27T13:30:00.000Z"
+        "startDate": "2026-05-27T13:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Science lab cleanup",
@@ -651,7 +730,8 @@
         "done": false,
         "description": "Help clean and organize science labs",
         "deadline": "2026-08-01 16:00",
-        "startDate": "2026-05-28T08:00:00.000Z"
+        "startDate": "2026-05-28T08:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Library volunteer hours",
@@ -659,7 +739,8 @@
         "done": false,
         "description": "Complete volunteer hours at school library",
         "deadline": "2026-08-05 14:00",
-        "startDate": "2026-05-29T09:30:00.000Z"
+        "startDate": "2026-05-29T09:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Final portfolio review",
@@ -667,7 +748,8 @@
         "done": false,
         "description": "Review and finalize writing portfolio",
         "deadline": "2026-08-08 11:00",
-        "startDate": "2026-05-30T07:00:00.000Z"
+        "startDate": "2026-05-30T07:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Historical society meeting",
@@ -675,7 +757,8 @@
         "done": false,
         "description": "Attend local historical society meeting",
         "deadline": "2026-08-10 18:00",
-        "startDate": "2026-05-31T14:00:00.000Z"
+        "startDate": "2026-05-31T14:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Math department assistant",
@@ -683,7 +766,8 @@
         "done": false,
         "description": "Help math teacher with summer curriculum",
         "deadline": "2026-08-12 15:00",
-        "startDate": "2026-06-01T08:30:00.000Z"
+        "startDate": "2026-06-01T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Environmental cleanup project",
@@ -691,7 +775,8 @@
         "done": false,
         "description": "Participate in community park cleanup",
         "deadline": "2026-08-15 09:00",
-        "startDate": "2026-06-02T07:00:00.000Z"
+        "startDate": "2026-06-02T07:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Creative writing contest",
@@ -699,7 +784,8 @@
         "done": false,
         "description": "Submit story to national writing contest",
         "deadline": "2026-08-18 17:00",
-        "startDate": "2026-06-03T10:00:00.000Z"
+        "startDate": "2026-06-03T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Museum exhibit visit",
@@ -707,7 +793,8 @@
         "done": false,
         "description": "Visit new historical exhibit",
         "deadline": "2026-08-20 13:00",
-        "startDate": "2026-06-04T11:00:00.000Z"
+        "startDate": "2026-06-04T11:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "SAT preparation course",
@@ -715,7 +802,8 @@
         "done": false,
         "description": "Complete online SAT prep course",
         "deadline": "2026-08-25 20:00",
-        "startDate": "2026-06-05T15:00:00.000Z"
+        "startDate": "2026-06-05T15:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Advanced calculus study",
@@ -723,7 +811,8 @@
         "done": false,
         "description": "Self-study multivariable calculus",
         "deadline": "2026-08-28 16:00",
-        "startDate": "2026-06-06T09:00:00.000Z"
+        "startDate": "2026-06-06T09:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Physics research paper",
@@ -731,7 +820,8 @@
         "done": false,
         "description": "Write paper on quantum physics applications",
         "deadline": "2026-08-30 14:00",
-        "startDate": "2026-06-07T08:30:00.000Z"
+        "startDate": "2026-06-07T08:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "Literature analysis blog",
@@ -739,7 +829,8 @@
         "done": false,
         "description": "Start blog analyzing classic literature",
         "deadline": "2026-09-02 12:00",
-        "startDate": "2026-06-08T10:00:00.000Z"
+        "startDate": "2026-06-08T10:00:00.000Z",
+        "pinned": false
       },
       {
         "text": "Historical documentary filming",
@@ -747,7 +838,8 @@
         "done": false,
         "description": "Film interviews for local history project",
         "deadline": "2026-09-05 15:00",
-        "startDate": "2026-06-09T09:30:00.000Z"
+        "startDate": "2026-06-09T09:30:00.000Z",
+        "pinned": false
       },
       {
         "text": "College orientation prep",
@@ -755,7 +847,8 @@
         "done": false,
         "description": "Prepare for college orientation week",
         "deadline": "2026-09-10 18:00",
-        "startDate": "2026-06-10T12:00:00.000Z"
+        "startDate": "2026-06-10T12:00:00.000Z",
+        "pinned": false
       }
     ]
   }

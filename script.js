@@ -97,6 +97,13 @@ if (toggle) {
 
 let tasks=JSON.parse(localStorage.tasks||"[]")
 
+// Migrate existing tasks to include pinned property
+tasks.forEach(task => {
+  if (task.pinned === undefined) {
+    task.pinned = false
+  }
+})
+
 let subjects = JSON.parse(localStorage.subjects || '["Math","Science","English","History","General"]')
 
 
@@ -167,7 +174,9 @@ description:"",
 
 deadline:"",
 
-startDate:new Date().toISOString()
+startDate:new Date().toISOString(),
+
+pinned:false
 
 }
 
@@ -342,16 +351,22 @@ openDeleteModal(i)
 
 
 
+// Add pin button
+let pin=document.createElement("button")
+pin.className="pin-btn"
+pin.innerHTML=t.pinned?'<span class="material-symbols-outlined filled">star</span>':'<span class="material-symbols-outlined">star</span>'
+pin.title=t.pinned?"Unpin task":"Pin task"
+
+pin.onclick=()=>{
+togglePin(i)
+}
+
 actions.appendChild(done)
-
 actions.appendChild(edit)
-
 actions.appendChild(del)
 
-
-
 task.appendChild(info)
-
+task.appendChild(pin)
 task.appendChild(actions)
 
 
@@ -977,6 +992,9 @@ if (confirmTaskComplete) {
       // Mark task as done
 
       currentTaskToComplete.done = true
+      
+      // Auto-unpin task when marked as done
+      currentTaskToComplete.pinned = false
 
       save()
 
@@ -1963,6 +1981,74 @@ function renderSubjects(){
 
 
 
+function togglePin(index){
+  const task = tasks[index]
+  task.pinned = !task.pinned
+  
+  // Auto-unpin if task is being marked as done
+  if(task.done && task.pinned){
+    task.pinned = false
+  }
+  
+  save()
+  
+  // Update only the pin button that was clicked to avoid flashing
+  const taskElements = document.querySelectorAll('.task')
+  if(taskElements[index]){
+    const pinButton = taskElements[index].querySelector('.pin-btn')
+    if(pinButton){
+      pinButton.innerHTML = task.pinned ? '<span class="material-symbols-outlined filled">star</span>' : '<span class="material-symbols-outlined">star</span>'
+      pinButton.title = task.pinned ? "Unpin task" : "Pin task"
+    }
+  }
+  
+  // Only update the pinned tasks display, not the entire task list
+  renderPinnedTasks()
+}
+
+function renderPinnedTasks(){
+  const pinnedContainer = document.getElementById("pinnedTasks")
+  if(!pinnedContainer) return
+  
+  const pinnedTasks = tasks.filter(task => task.pinned && !task.done)
+  
+  if(pinnedTasks.length === 0){
+    pinnedContainer.innerHTML = "<div class='no-pinned-tasks'>No pinned tasks</div>"
+    return
+  }
+  
+  pinnedContainer.innerHTML = ""
+  
+  pinnedTasks.forEach(task => {
+    const taskEl = document.createElement("div")
+    taskEl.className = "pinned-task-item"
+    
+    const taskInfo = document.createElement("div")
+    taskInfo.className = "pinned-task-info"
+    
+    const taskName = document.createElement("div")
+    taskName.className = "pinned-task-name"
+    taskName.textContent = task.text
+    
+    const taskSubject = document.createElement("div")
+    taskSubject.className = "pinned-task-subject"
+    taskSubject.textContent = task.subject
+    
+    taskInfo.appendChild(taskName)
+    taskInfo.appendChild(taskSubject)
+    
+    if(task.deadline){
+      const deadline = document.createElement("div")
+      deadline.className = "pinned-task-deadline"
+      deadline.textContent = `Due: ${new Date(task.deadline).toLocaleDateString()}`
+      taskInfo.appendChild(deadline)
+    }
+    
+    taskEl.appendChild(taskInfo)
+    pinnedContainer.appendChild(taskEl)
+  })
+}
+
 function renderStats(){
   console.log('=== renderStats called ===');
   console.log('Current tasks count:', tasks.length);
@@ -2586,6 +2672,9 @@ function renderDashboard(){
   if(taskCountEl) taskCountEl.textContent = activeCount
 
   if(completedCountEl) completedCountEl.textContent = completedCount
+  
+  // Update pinned tasks display
+  renderPinnedTasks()
 
 }
 
