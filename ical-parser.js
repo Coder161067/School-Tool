@@ -305,7 +305,7 @@ class CalendarDisplay {
         console.log('Current date set to:', this.currentWeek.toISOString());
         console.log('Current date (local):', this.currentWeek.toString());
         console.log('Current date (date string):', this.currentWeek.toDateString());
-        console.log('Today is:', this.currentWeek.toLocaleDateString('en-US', { 
+        console.log('Today is:', this.currentWeek.toLocaleDateString('en-GB', { 
             weekday: 'long', 
             year: 'numeric', 
             month: 'long', 
@@ -362,13 +362,13 @@ class CalendarDisplay {
             const weekEnd = new Date(weekStart);
             weekEnd.setDate(weekStart.getDate() + 4); // Monday + 4 = Friday
             
-            weekHeader.textContent = weekStart.toLocaleDateString('en-US', { 
-                month: 'short', 
-                day: 'numeric',
+            weekHeader.textContent = weekStart.toLocaleDateString('en-GB', { 
+                day: 'numeric', 
+                month: 'short',
                 year: 'numeric'
-            }) + ' - ' + weekEnd.toLocaleDateString('en-US', { 
-                month: 'short', 
-                day: 'numeric',
+            }) + ' - ' + weekEnd.toLocaleDateString('en-GB', { 
+                day: 'numeric', 
+                month: 'short',
                 year: 'numeric'
             });
         }
@@ -629,7 +629,7 @@ class CalendarDisplay {
                 hour12: false
             });
         
-        const dateStr = startTime.toLocaleDateString('en-US', {
+        const dateStr = startTime.toLocaleDateString('en-GB', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',

@@ -16,12 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const now = new Date();
 
-  clock.textContent = `${now.toLocaleTimeString()} ${now.toLocaleDateString('en-US', { 
-
-    month: 'short', 
-
-    day: 'numeric' 
-
+  clock.textContent = `${now.toLocaleTimeString()} ${now.toLocaleDateString('en-GB', { 
+    day: 'numeric', 
+    month: 'numeric', 
+    year: 'numeric' 
   })}`;
 
 
@@ -32,12 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const now = new Date();
 
-    clock.textContent = `${now.toLocaleTimeString()} ${now.toLocaleDateString('en-US', { 
-
-      month: 'short', 
-
-      day: 'numeric' 
-
+    clock.textContent = `${now.toLocaleTimeString()} ${now.toLocaleDateString('en-GB', { 
+      day: 'numeric', 
+      month: 'numeric', 
+      year: 'numeric' 
     })}`;
 
   }, 1000);
@@ -435,13 +431,17 @@ let deadlineTime=""
 
 
 
-if(task.deadline && task.deadline.includes(" ")){
+if(task.deadline && task.deadline.includes("T")){
 
-const [date, time]=task.deadline.split(" ")
+const [date, timeWithSeconds]=task.deadline.split("T")
 
 deadlineDate=date
 
-deadlineTime=time
+// Extract hours and minutes (remove seconds)
+
+const [hours, minutes]=timeWithSeconds.split(":").slice(0, 2)
+
+deadlineTime=`${hours}:${minutes}`
 
 }else{
 
@@ -2302,8 +2302,8 @@ function calculateTaskProgress(task) {
     percentage: progressPercentage,
     daysRemaining: totalDaysUntilDeadline,
     status: totalDaysUntilDeadline <= 3 ? 'urgent' : totalDaysUntilDeadline <= 7 ? 'warning' : 'safe',
-    startDate: deadlineDate.toLocaleDateString(),
-    deadline: deadlineDate.toLocaleDateString()
+    startDate: deadlineDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' }),
+    deadline: deadlineDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' })
   };
 }
 
