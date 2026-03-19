@@ -1,0 +1,268 @@
+{
+  "exportDate": "2026-03-19T03:48:00.000Z",
+  "version": "1.0",
+  "settings": {
+    "theme": "dark",
+    "timeFormat": "12",
+    "calendarUrl": "https://boxhillhs-vic.compass.education/download/sharedCalendar.aspx?uid=14304&key=8c4fee7b-698a-447b-80ee-d1fdf988952c&c.ics",
+    "subjects": [
+      "Physics_VCE",
+      "German",
+      "Science",
+      "English",
+      "Math",
+      "Methods_Matrix",
+      "Physics_Matrix"
+    ],
+    "tasks": [
+      {
+        "text": "Complete physics lab report on motion",
+        "subject": "Physics_VCE",
+        "description": "Write a detailed analysis of the projectile motion experiment",
+        "deadline": "2026-03-25T15:30:00",
+        "pinned": true,
+        "done": false
+      },
+      {
+        "text": "German vocabulary quiz preparation",
+        "subject": "German",
+        "description": "Study chapters 5-7 vocabulary for Friday's quiz",
+        "deadline": "2026-03-22T14:00:00",
+        "pinned": true,
+        "done": false
+      },
+      {
+        "text": "Science fair project proposal",
+        "subject": "Science",
+        "description": "Submit 500-word proposal for renewable energy project",
+        "deadline": "2026-03-24T16:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "English essay final draft",
+        "subject": "English",
+        "description": "Complete final draft of comparative essay on Shakespeare",
+        "deadline": "2026-03-23T23:59:00",
+        "pinned": true,
+        "done": false
+      },
+      {
+        "text": "Math calculus problem set",
+        "subject": "Math",
+        "description": "Complete problems 1-25 from chapter 8 exercises",
+        "deadline": "2026-03-21T17:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Methods matrix transformations",
+        "subject": "Methods_Matrix",
+        "description": "Practice matrix multiplication and transformation problems",
+        "deadline": "2026-03-26T12:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Physics matrix mechanics review",
+        "subject": "Physics_Matrix",
+        "description": "Review quantum mechanics chapter for upcoming test",
+        "deadline": "2026-03-27T15:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "German oral presentation practice",
+        "subject": "German",
+        "description": "Practice 5-minute presentation on German culture",
+        "deadline": "2026-03-28T10:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Science lab safety quiz",
+        "subject": "Science",
+        "description": "Complete online safety certification module",
+        "deadline": "2026-03-20T23:59:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "English poetry analysis",
+        "subject": "English",
+        "description": "Analyze three poems by Robert Frost",
+        "deadline": "2026-03-29T14:30:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Math statistics project",
+        "subject": "Math",
+        "description": "Collect and analyze survey data for statistics project",
+        "deadline": "2026-03-30T16:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Methods vectors and scalars",
+        "subject": "Methods_Matrix",
+        "description": "Complete worksheet on vector operations",
+        "deadline": "2026-03-31T13:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Physics VCE exam preparation",
+        "subject": "Physics_VCE",
+        "description": "Review past exam papers from 2020-2024",
+        "deadline": "2026-04-02T09:00:00",
+        "pinned": true,
+        "done": false
+      },
+      {
+        "text": "German grammar exercises",
+        "subject": "German",
+        "description": "Complete subjunctive mood exercises in textbook",
+        "deadline": "2026-04-01T15:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Science research paper outline",
+        "subject": "Science",
+        "description": "Create outline for climate change research paper",
+        "deadline": "2026-04-03T17:30:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "English novel reading assignment",
+        "subject": "English",
+        "description": "Read chapters 1-10 of '1984' and write summary",
+        "deadline": "2026-04-04T20:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Math geometry proofs",
+        "subject": "Math",
+        "description": "Complete 10 geometric proofs with detailed explanations",
+        "deadline": "2026-04-05T14:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Methods probability problems",
+        "subject": "Methods_Matrix",
+        "description": "Solve probability distribution exercises",
+        "deadline": "2026-04-06T11:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Physics matrix quantum theory",
+        "subject": "Physics_Matrix",
+        "description": "Write summary of wave-particle duality concepts",
+        "deadline": "2026-04-07T15:30:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "German listening comprehension",
+        "subject": "German",
+        "description": "Complete online listening exercises for unit 8",
+        "deadline": "2026-04-08T13:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Science experiment write-up",
+        "subject": "Science",
+        "description": "Document chemical reaction experiment results",
+        "deadline": "2026-04-09T16:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "English creative writing piece",
+        "subject": "English",
+        "description": "Write 1000-word short story for portfolio",
+        "deadline": "2026-04-10T18:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Math algebra review",
+        "subject": "Math",
+        "description": "Review polynomial functions and factoring",
+        "deadline": "2026-04-11T12:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Methods integration practice",
+        "subject": "Methods_Matrix",
+        "description": "Practice integration techniques for calculus test",
+        "deadline": "2026-04-12T14:30:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Physics VCE practical exam",
+        "subject": "Physics_VCE",
+        "description": "Prepare for practical physics examination",
+        "deadline": "2026-04-13T10:00:00",
+        "pinned": true,
+        "done": false
+      },
+      {
+        "text": "German conversation practice",
+        "subject": "German",
+        "description": "Record 3-minute conversation with language partner",
+        "deadline": "2026-04-14T15:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Science presentation slides",
+        "subject": "Science",
+        "description": "Create PowerPoint for biology presentation",
+        "deadline": "2026-04-15T13:30:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "English literary analysis essay",
+        "subject": "English",
+        "description": "Write 1500-word essay on modernist literature",
+        "deadline": "2026-04-16T20:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Math trigonometry problems",
+        "subject": "Math",
+        "description": "Complete trigonometry worksheet chapters 9-10",
+        "deadline": "2026-04-17T16:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Methods differential equations",
+        "subject": "Methods_Matrix",
+        "description": "Solve first-order differential equations",
+        "deadline": "2026-04-18T11:00:00",
+        "pinned": false,
+        "done": false
+      },
+      {
+        "text": "Physics matrix relativity concepts",
+        "subject": "Physics_Matrix",
+        "description": "Study special relativity theory and applications",
+        "deadline": "2026-04-19T15:00:00",
+        "pinned": false,
+        "done": false
+      }
+    ]
+  }
+}

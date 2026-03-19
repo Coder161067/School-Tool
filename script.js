@@ -2048,36 +2048,6 @@ function renderPinnedTasks(){
       info.appendChild(description)
     }
     
-    let actions=document.createElement("div")
-    actions.className="task-actions"
-    
-    let done=document.createElement("button")
-    done.className="done-btn"
-    done.textContent=t.done?"UNDO":"DONE"
-    done.onclick=()=>{
-      if (t.done) {
-        openTaskUndoModal(t, done)
-      } else {
-        openTaskCompleteModal(t, done)
-      }
-    }
-    
-    let edit=document.createElement("button")
-    edit.className="edit-btn"
-    edit.textContent="EDIT"
-    edit.onclick=()=>{
-      console.log('Edit button clicked for task index:', originalIndex)
-      openEditModal(originalIndex)
-    }
-    
-    let del=document.createElement("button")
-    del.className="delete-btn"
-    del.textContent="DELETE"
-    del.onclick=()=>{
-      console.log('Delete button clicked for task index:', originalIndex)
-      openDeleteModal(originalIndex)
-    }
-    
     // Add pin button
     let pin=document.createElement("button")
     pin.className="pin-btn"
@@ -2088,13 +2058,8 @@ function renderPinnedTasks(){
       togglePin(originalIndex)
     }
     
-    actions.appendChild(done)
-    actions.appendChild(edit)
-    actions.appendChild(del)
-    
     task.appendChild(info)
     task.appendChild(pin)
-    task.appendChild(actions)
     pinnedContainer.appendChild(task)
   })
 }

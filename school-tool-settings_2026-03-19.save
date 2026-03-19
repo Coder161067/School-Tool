@@ -1,0 +1,19 @@
+{
+  "exportDate": "2026-03-19T02:03:35.572Z",
+  "version": "1.0",
+  "settings": {
+    "theme": "dark",
+    "timeFormat": "12",
+    "calendarUrl": "https://boxhillhs-vic.compass.education/download/sharedCalendar.aspx?uid=14304&key=8c4fee7b-698a-447b-80ee-d1fdf988952c&c.ics",
+    "subjects": [
+      "Physics_VCE",
+      "German",
+      "Science",
+      "English",
+      "Math",
+      "Methods_Matrix",
+      "Physics_Matrix"
+    ],
+    "tasks": []
+  }
+}
