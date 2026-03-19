@@ -11,9 +11,6 @@
 - Priority matrix
 - Heatmap
 
-**Dashboard:**
-- Pin tasks
-
 **QOL:**
 - Focus Mode
 - Dyslexia Font

@@ -3940,6 +3940,8 @@ opacity:1;
 
   flex-wrap: wrap;
 
+  align-items: flex-start;
+
 }
 
 
@@ -4079,7 +4081,7 @@ opacity:1;
 
 .progress-section {
 
-  margin-top: 30px;
+  margin-top: 0;
 
 }
 
@@ -4111,7 +4113,19 @@ opacity:1;
 
   padding-bottom: 10px;
 
-  margin-bottom: 20px;
+  margin: 20px 0 20px 0;
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+  height: 50px;
+
+  display: flex;
+
+  align-items: center;
+
+  color: var(--text);
 
 }
 
@@ -4121,7 +4135,7 @@ opacity:1;
 
 .progress-section:has( > h2) > div[style*="background"] {
 
-  max-height: 420px;
+  max-height: 620px;
 
   overflow-y: auto;
 
