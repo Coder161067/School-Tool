@@ -11,7 +11,7 @@ Graphs:
 > Heatmap
 
 Dashboard:
-> 
+> Pin tasks
 
 QOL:
 > Focus Mode
