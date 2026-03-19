@@ -5,20 +5,20 @@
 4. Get rid of bugs
 
 **Graphs:**
-> Bar graph for amount of tasks for each subject
-> Progress bar until due date
-> Burndown
-> Priority matrix
-> Heatmap
+- Bar graph for amount of tasks for each subject
+- Progress bar until due date
+- Burndown
+- Priority matrix
+- Heatmap
 
 **Dashboard:**
-> Pin tasks
+- Pin tasks
 
 **QOL:**
-> Focus Mode
-> Dyslexia Font
-> Bionic Reading
-> Different productivity timers (Flip Clock, Countdown, Progress bar, Pomodoro, Sand timer)
+- Focus Mode
+- Dyslexia Font
+- Bionic Reading
+- Different productivity timers (Flip Clock, Countdown, Progress bar, Pomodoro, Sand timer)
 
 **Problems**
-> Weird subject name appearance
+- Weird subject name appearance in graph
