@@ -1972,8 +1972,8 @@ opacity:1;
 }
 
 .chart-section {
-  flex: 1;
-  min-width: 300px;
+  flex: 2;
+  min-width: 500px;
 }
 
 /* Stats Layout - Chart Only */
@@ -1986,6 +1986,17 @@ opacity:1;
   flex: 1;
   margin-bottom: 0;
   max-width: 1200px;
+}
+
+/* Consistent stats titles */
+.stats-layout h2 {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  color: var(--text);
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 /* Remove rounded corners from stats page elements */
@@ -2033,12 +2044,12 @@ opacity:1;
 
 /* Progress Bars Styling */
 .progress-section {
-  margin-top: 30px;
+  margin-top: 0;
 }
 
 /* Make Task Progress by Due Date section scrollable but keep title fixed */
 .progress-section:has( > h2) {
-  max-height: 500px;
+  max-height: 570px;
   overflow-y: hidden;
   padding-right: 10px;
 }
@@ -2049,14 +2060,15 @@ opacity:1;
   background: var(--bg);
   z-index: 10;
   padding-bottom: 10px;
-  margin-bottom: 20px;
+  margin: 8px 0 20px 0;
 }
 
 /* Make the content container scrollable instead of the whole section */
 .progress-section:has( > h2) > div[style*="background"] {
-  max-height: 420px;
+  max-height: 520px;
   overflow-y: auto;
   padding-right: 10px;
+  margin-top: -8px;
 }
 
 .task-progress-item {

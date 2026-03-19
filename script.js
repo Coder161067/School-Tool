@@ -2141,7 +2141,8 @@ function renderStats(){
         data: chartData,
         backgroundColor: backgroundColor,
         borderColor: accentColor,
-        borderWidth: 1
+        borderWidth: 1,
+        borderRadius: 0
       }]
     },
     options: {
