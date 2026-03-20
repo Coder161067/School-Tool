@@ -8,7 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link rel="stylesheet" href="bootstrap.min.css">
 <script src="ical-parser.js"></script>
+<script src="bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -18,10 +20,10 @@
 <div class="title">TASK_MANAGER</div>
 
 <nav>
-<a href="index.html">DASHBOARD</a>
-<a href="tasks.html">TASKS</a>
-<a href="calendar.html">CALENDAR</a>
-<a href="stats.html">STATS</a>
+<a href="index.html"><span class="nerd-icon">󰕮 </span> DASHBOARD</a>
+<a href="tasks.html"><span class="nerd-icon">󰍜 </span> TASKS</a>
+<a href="calendar.html"><span class="nerd-icon">󰃭 </span> CALENDAR</a>
+<a href="stats.html"><span class="nerd-icon"> </span> STATS</a>
 </nav>
 
 <div class="controls">
@@ -102,9 +104,9 @@
 <section id="taskList" class="tasks"></section>
 
 <section class="add-task">
-<button id="addTask">ADD TASK</button>
+<button id="addTask"><span class="nerd-icon">󰐕 </span> ADD TASK</button>
 <div class="csv-controls">
-<button id="deleteAllTasks" style="background: var(--accent); color: white;">DELETE ALL TASKS</button>
+<button id="deleteAllTasks" style="background: var(--accent); color: white;"><span class="nerd-icon">󰆴 </span> DELETE ALL TASKS</button>
 </div>
 </section>
 

@@ -1,19 +1,22 @@
-@font-face{
-
-
-
-font-family:JetBrainsMono;
-
-
-
-src:url("JetBrainsMonoNerdFont-Medium.ttf");
-
-
-
+@font-face {
+  font-family: 'JetBrains Mono Nerd Font';
+  src: url('JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
-
-
+/* Nerd Font icon helper classes */
+.nerd-icon {
+  font-family: 'JetBrains Mono Nerd Font', monospace;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 
 
@@ -87,113 +90,177 @@ src:url("JetBrainsMonoNerdFont-Medium.ttf");
 
 
 :root{
-
-
-
 --bg:#F9F7F7;
-
-
-
 --panel:#DBE2EF;
-
-
-
 --accent:#3F72AF;
-
-
-
---text:#112D4E;
-
-
-
+--button-bg:#6B9BD1;
+--text:#000000;
 }
-
-
-
 
 
 
 
 .dark{
-
-
-
 --bg:#112D4E;
-
-
-
 --panel:#1d3c66;
-
-
-
 --accent:#3F72AF;
-
-
-
+--button-bg:#3F72AF;
 --text:#F9F7F7;
-
-
-
 }
 
 
+/* Force all text to be white in dark mode */
+.dark * {
+  color: var(--text) !important;
+}
 
+/* Dark mode specific overrides for text elements */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+.dark p, .dark span, .dark div, .dark a, .dark label, .dark option,
+.dark li, .dark td, .dark th, .dark caption, .dark legend, .dark dt, .dark dd,
+.dark input, .dark select, .dark textarea, .dark button {
+  color: var(--text) !important;
+}
 
+/* Keep accent colors for specific elements */
+.dark .task-subject, .dark .pin-btn, .dark a:hover, .dark .event-time,
+.dark .nav-arrow:hover, .dark .nav-arrow:active {
+  color: var(--accent) !important;
+}
 
-
+/* Viewport reset for full height layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 *{
-
-
-
-margin:0;
-
-
-
-padding:0;
-
-
-
-box-sizing:border-box;
-
-
-
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'JetBrains Mono Nerd Font', monospace;
 }
 
-
-
-
-
-
-
-body{
-
-
-
-font-family:JetBrainsMono, monospace;
-
-
-
-background:var(--bg);
-
-
-
-color:var(--text);
-
-
-
+body {
+  font-family: 'JetBrains Mono Nerd Font', monospace;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+main {
+  padding:30px;
+  background: var(--bg);
+  flex: 1;
+  flex-grow: 1;
+}
 
+/* Comprehensive text color coverage */
+h1, h2, h3, h4, h5, h6, p, span, div, a, label, option, li, td, th, caption, legend, dt, dd {
+  color: var(--text);
+}
 
+/* Theme-aware font colors for all elements */
+input, select, textarea, button, h1, h2, h3, h4, h5, h6, p, span, div, a, label, option {
+  font-family: 'JetBrains Mono Nerd Font', monospace;
+  color: var(--text);
+}
 
+/* Specific element color overrides */
+input, select, textarea {
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--panel);
+}
 
+button {
+  background: var(--button-bg);
+  color: var(--text);
+  border: 2px solid var(--button-bg);
+}
 
+button:hover {
+  background: var(--panel);
+  color: var(--text);
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+.panel, .card {
+  background: var(--bg);
+  border: 2px solid var(--panel);
+  color: var(--text);
+}
+
+.card-header {
+  background: var(--panel);
+  color: var(--text);
+  border-bottom: 1px solid var(--panel);
+}
+
+.modal-content {
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--panel);
+}
+
+.task {
+  background: var(--bg);
+  border: 2px solid var(--panel);
+  color: var(--text);
+}
+
+.task-subject {
+  color: var(--accent);
+}
+
+.task-description {
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.calendar-grid div {
+  background: var(--bg);
+  border: 2px solid var(--panel);
+  color: var(--text);
+}
+
+.day-event {
+  background: var(--panel);
+  color: var(--text);
+  border-left: 4px solid var(--accent);
+}
+
+.delete-btn, .edit-btn {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--panel);
+}
+
+.delete-btn:hover, .edit-btn:hover {
+  background: var(--panel);
+  color: var(--text);
+}
+
+.pin-btn {
+  color: var(--accent);
+}
+
+#clock {
+  color: var(--text);
+}
 
 /* HEADER */
-
-
-
 
 
 
@@ -346,7 +413,7 @@ padding:6px 8px;
 
 
 
-border-radius:4px;
+border-radius:0;
 
 
 
@@ -485,118 +552,84 @@ color:var(--bg);
 }
 
 
-
-
-
-
-
-/* MAIN */
-
-
-
-
-
-
-
-main{
-
-
-
-padding:30px;
-
-
-
+/* Bootstrap overrides for theme compliance */
+.container-fluid, .container, .row, .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12,
+.col-sm, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12,
+.col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12,
+.col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12,
+.col-xl, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12 {
+  background: var(--bg) !important;
 }
 
+.card {
+  background: var(--bg) !important;
+  border: 2px solid var(--panel) !important;
+}
 
+.card-header {
+  background: var(--panel) !important;
+  border-bottom: 1px solid var(--panel) !important;
+}
 
+/* Bootstrap modal overrides with maximum specificity */
+.modal .modal-content,
+.modal.show .modal-content,
+.modal.fade .modal-content,
+.modal.fade.show .modal-content {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  border: 2px solid var(--panel) !important;
+}
 
+.modal .modal-content *,
+.modal.show .modal-content *,
+.modal.fade .modal-content *,
+.modal.fade.show .modal-content * {
+  color: var(--text) !important;
+}
 
+.modal .modal-content h2,
+.modal.show .modal-content h2,
+.modal.fade .modal-content h2,
+.modal.fade.show .modal-content h2 {
+  color: var(--accent) !important;
+}
 
+.modal .modal-content .form-control,
+.modal.show .modal-content .form-control,
+.modal.fade .modal-content .form-control,
+.modal.fade.show .modal-content .form-control {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  border: 2px solid var(--panel) !important;
+}
 
-/* BUTTONS */
-
-
-
-
-
-
+.modal .modal-content .form-label,
+.modal.show .modal-content .form-label,
+.modal.fade .modal-content .form-label,
+.modal.fade.show .modal-content .form-label {
+  color: var(--text) !important;
+}
 
 button{
-
-
-
-background:var(--accent);
-
-
-
-color:#F9F7F7;
-
-
-
-border:2px solid var(--accent);
-
-
-
-padding:8px 14px;
-
-
-
-font-family:inherit;
-
-
-
-cursor:pointer;
-
-
-
-transition:background 0.15s,color 0.15s;
-
-
-
+  background:var(--accent);
+  color:var(--text);
+  border:2px solid var(--accent);
+  font-family:inherit;
+  cursor:pointer;
+  transition:background 0.15s,color 0.15s;
+  padding:8px 14px;
 }
-
-
-
-
-
-
 
 button:hover{
-
-
-
-background:var(--panel);
-
-
-
-color:var(--text);
-
-
-
+  background:var(--panel);
+  color:var(--text);
 }
-
-
-
-
-
-
 
 button:active{
-
-
-
-background:var(--text);
-
-
-
-color:#F9F7F7;
-
-
-
+  background:var(--text);
+  color:var(--accent);
 }
-
-
 
 
 
@@ -954,34 +987,15 @@ align-items:center;
 
 
 
-
-
-
-
 .csv-controls button{
-
-
-
-font-size:16px;
-
-
-
-padding:12px 24px;
-
-
-
-background:var(--accent);
-
-
-
-color:#F9F7F7;
-
-
-
-border:2px solid var(--accent);
-
-
-
+  font-size:16px;
+  padding:12px 24px;
+  background:var(--accent);
+  color:var(--text);
+  border:2px solid var(--accent);
+  font-family:inherit;
+  cursor:pointer;
+  transition:background 0.15s,color 0.15s;
 font-family:inherit;
 
 
@@ -1350,7 +1364,7 @@ cursor:pointer;
 
 
 
-border-radius:4px;
+border-radius:0;
 
 
 
@@ -1418,15 +1432,15 @@ font-size:20px;
 
 
 
-background:#dc3545;
+background:var(--accent);
 
 
 
-border-color:#dc3545;
+border-color:var(--accent);
 
 
 
-color:#F9F7F7;
+color:var(--text);
 
 
 
@@ -1442,11 +1456,11 @@ color:#F9F7F7;
 
 
 
-background:#c82333;
+background:var(--panel);
 
 
 
-border-color:#c82333;
+border-color:var(--panel);
 
 
 
@@ -1690,7 +1704,7 @@ background:var(--panel);
 
 
 
-border-radius:4px;
+border-radius:0;
 
 
 
@@ -1990,7 +2004,7 @@ background:var(--accent);
 
 
 
-color:var(--background);
+color:var(--bg);
 
 
 
@@ -2050,7 +2064,7 @@ padding:8px 12px;
 
 
 
-border-radius:4px;
+border-radius:0;
 
 
 
@@ -2062,7 +2076,7 @@ font-weight:bold;
 
 
 
-color:var(--background);
+color:var(--bg);
 
 
 
@@ -2078,7 +2092,7 @@ color:var(--background);
 
 
 
-background:#28a745;
+background:var(--accent);
 
 
 
@@ -2238,7 +2252,7 @@ padding:8px 10px;
 
 
 
-border-radius:4px;
+border-radius:0;
 
 
 
@@ -2370,11 +2384,11 @@ background:var(--accent);
 
 
 
-color:var(--background);
+color:var(--bg);
 
 
 
-border-left-color:#6f42c1;
+border-left-color:var(--accent);
 
 
 
@@ -2390,7 +2404,7 @@ border-left-color:#6f42c1;
 
 
 
-color:var(--background);
+color:var(--bg);
 
 
 
@@ -2551,41 +2565,14 @@ transform:translateY(0);
 
 
 .modal{
-
-
-
 display:none;
-
-
-
 position:fixed;
-
-
-
 top:0;
-
-
-
 left:0;
-
-
-
 width:100%;
-
-
-
 height:100%;
-
-
-
-background:rgba(0,0,0,0.5);
-
-
-
+background:rgba(0, 0, 0, 0.5);
 z-index:1000;
-
-
-
 }
 
 
@@ -2610,7 +2597,7 @@ padding:30px;
 
 
 
-border-radius:8px;
+border-radius:0;
 
 
 
@@ -2649,40 +2636,42 @@ margin-bottom:20px;
 text-align:center;
 
 
-
 }
-
-
-
-
-
-
 
 .modal-content label{
-
-
-
 display:block;
-
-
-
 margin-bottom:5px;
-
-
-
 margin-top:15px;
-
-
-
 color:var(--text);
-
-
-
 }
 
+.modal-content p {
+color:var(--text);
+margin-bottom:15px;
+}
 
+.modal-content strong {
+color:var(--text);
+font-weight:bold;
+}
 
+/* Force theme adherence for all modal text with higher specificity */
+.modal-content *,
+.modal-content p,
+.modal-content label,
+.modal-content strong,
+.modal-content span,
+.modal-content div {
+  color: var(--text) !important;
+}
 
+/* Keep accent colors for specific elements with higher specificity */
+.modal-content h2,
+.modal-content .advanced-toggle {
+  color: var(--accent) !important;
+}
+
+/* Force modal inputs to use theme colors */
 
 
 
@@ -2806,7 +2795,7 @@ padding:8px;
 
 
 
-border-radius:4px;
+border-radius:0;
 
 
 
@@ -2974,6 +2963,57 @@ margin-top:20px;
 
 
 
+/* Modal action buttons - theme adherence */
+.modal-actions button {
+  background: var(--button-bg);
+  color: var(--text);
+  border: 2px solid var(--button-bg);
+  font-family: 'JetBrains Mono Nerd Font', monospace;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  padding: 8px 14px;
+}
+
+.modal-actions button:hover {
+  background: var(--panel);
+  color: var(--text);
+  border-color: var(--panel);
+}
+
+.modal-actions button[type="submit"] {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.modal-actions button[type="submit"]:hover {
+  background: var(--panel);
+  border-color: var(--panel);
+}
+
+/* Specific modal buttons */
+#confirmDeleteBtn, #confirmDeleteAllBtn, #confirmTaskComplete {
+  background: var(--accent);
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+#confirmDeleteBtn:hover, #confirmDeleteAllBtn:hover, #confirmTaskComplete:hover {
+  background: var(--panel);
+  border-color: var(--panel);
+}
+
+#cancelEdit, #cancelDelete, #cancelDeleteAll, #cancelTaskComplete {
+  background: var(--button-bg);
+  color: var(--text);
+  border-color: var(--button-bg);
+}
+
+#cancelEdit:hover, #cancelDelete:hover, #cancelDeleteAll:hover, #cancelTaskComplete:hover {
+  background: var(--panel);
+  border-color: var(--panel);
+}
+
+
 /* SETTINGS POPOUT MENU */
 
 
@@ -3062,7 +3102,7 @@ border:2px solid var(--panel);
 
 
 
-border-radius:8px;
+border-radius:0;
 
 
 
@@ -3166,11 +3206,11 @@ background:var(--accent) !important;
 
 
 
-color:#F9F7F7 !important;
+color:var(--text) !important;
 
 
 
-font-family:JetBrainsMono, monospace !important;
+font-family:'JetBrains Mono Nerd Font', monospace !important;
 
 
 
@@ -3434,7 +3474,7 @@ background:var(--panel);
 
 
 
-border-radius:4px;
+border-radius:0;
 
 
 
@@ -3706,7 +3746,7 @@ border:2px solid var(--accent);
 
 
 
-border-radius:8px;
+border-radius:0;
 
 
 
@@ -4150,11 +4190,13 @@ opacity:1;
 
   margin-bottom: 20px;
 
+  margin-top: 15px;
+
   padding: 15px;
 
-  background: var(--bg);
+  background: var(--panel);
 
-  border-radius: 8px;
+  border-radius: 0;
 
   border-left: 4px solid var(--accent);
 
@@ -4212,7 +4254,7 @@ opacity:1;
 
   color: var(--bg);
 
-  border-radius: 12px;
+  border-radius: 0;
 
   font-size: 11px;
 
@@ -4236,25 +4278,23 @@ opacity:1;
 
   height: 20px;
 
-  background: var(--panel);
+  background: var(--bg);
 
-  border-radius: 10px;
+  border-radius: 0;
 
   overflow: hidden;
 
   position: relative;
 
-}
-
-
+  }
 
 .task-progress-bar {
 
   height: 100%;
 
-  background: linear-gradient(90deg, var(--accent), #5a8fd8);
+  background: linear-gradient(90deg, #6B9BD1, #3F72AF);
 
-  border-radius: 10px;
+  border-radius: 0;
 
   transition: width 0.3s ease;
 
@@ -4262,9 +4302,7 @@ opacity:1;
 
   min-width: 2px; /* Ensure very small percentages are still visible */
 
-}
-
-
+  }
 
 .task-progress-bar.urgent {
 
@@ -4284,7 +4322,7 @@ opacity:1;
 
 .task-progress-bar.safe {
 
-  background: linear-gradient(90deg, var(--accent), #5a8fd8);
+  background: linear-gradient(90deg, #6B9BD1, #3F72AF);
 
 }
 
@@ -4334,13 +4372,13 @@ opacity:1;
 
   background: var(--panel);
 
-  border-radius: 4px;
+  border-radius: 0;
 
   padding: 8px;
 
   margin-bottom: 8px;
 
-  border-left: 3px solid var(--accent);
+  border-left: 0px solid var(--accent);
 
 }
 

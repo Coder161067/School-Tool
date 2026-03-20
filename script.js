@@ -1,5 +1,17 @@
 // =====================
 
+// CHART.JS GLOBAL FONT CONFIGURATION
+
+// =====================
+
+// Set global default font for all Chart.js charts to use JetBrains Mono Nerd Font
+if (typeof Chart !== 'undefined') {
+  Chart.defaults.font.family = 'JetBrains Mono Nerd Font';
+  Chart.defaults.font.size = 12;
+}
+
+// =====================
+
 // LIVE CLOCK (non-blocking)
 
 // =====================
@@ -2108,6 +2120,7 @@ function renderStats(){
 
   const chartLabels = Object.keys(taskCounts);
   const chartData = Object.values(taskCounts);
+  const maxValue = Math.max(...chartData, 0);
 
   const isDarkMode = document.body.classList.contains('dark');
   console.log('DEBUG: isDarkMode from body class:', isDarkMode);
@@ -2148,6 +2161,11 @@ function renderStats(){
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      layout: {
+        padding: {
+          top: 20
+        }
+      },
       plugins: {
         legend: {
           display: false
@@ -2156,11 +2174,12 @@ function renderStats(){
       scales: {
         y: {
           beginAtZero: true,
+          suggestedMax: maxValue + 1,
           ticks: {
             stepSize: 1,
             color: textColor,
             font: {
-              family: 'JetBrainsMono',
+              family: 'JetBrains Mono Nerd Font',
               size: 14
             }
           },
@@ -2176,7 +2195,7 @@ function renderStats(){
             text: 'Number of Tasks',
             color: textColor,
             font: {
-              family: 'JetBrainsMono',
+              family: 'JetBrains Mono Nerd Font',
               size: 12
             }
           }
@@ -2185,7 +2204,7 @@ function renderStats(){
           ticks: {
             color: textColor,
             font: {
-              family: 'JetBrainsMono',
+              family: 'JetBrains Mono Nerd Font',
               size: 14
             }
           },
