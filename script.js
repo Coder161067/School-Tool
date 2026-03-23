@@ -232,38 +232,20 @@ list.innerHTML=""
 
 tasks.forEach((t,i)=>{
 
-
-
 let task=document.createElement("div")
-
-task.className="task"
-
-
-
+task.className="task d-flex flex-column flex-md-row align-items-start justify-content-between p-3 mb-3"
+    
 if(t.done) task.classList.add("done")
-
-
-
-
-
+    
 let info=document.createElement("div")
-
-info.className="task-info"
-
-
-
+info.className="task-info flex-grow-1"
+    
 let subject=document.createElement("div")
-
 subject.className="task-subject"
-
 subject.textContent=t.subject
-
-
-
+    
 let text=document.createElement("div")
-
 text.className="task-text"
-
 text.textContent=t.text
 
 
@@ -2036,11 +2018,11 @@ function renderPinnedTasks(){
     const originalIndex = tasks.findIndex(task => task === t)
     
     let task=document.createElement("div")
-    task.className="task"
+    task.className="task d-flex flex-column flex-md-row align-items-start justify-content-between p-3 mb-3"
     if(t.done) task.classList.add("done")
     
     let info=document.createElement("div")
-    info.className="task-info"
+    info.className="task-info flex-grow-1"
     
     let subject=document.createElement("div")
     subject.className="task-subject"
@@ -2053,6 +2035,24 @@ function renderPinnedTasks(){
     info.appendChild(subject)
     info.appendChild(text)
     
+    let actions=document.createElement("div")
+    actions.className="task-actions d-flex flex-column flex-md-row gap-2 mt-3"
+    
+    let done=document.createElement("button")
+    done.className="done-btn btn btn-sm btn-success me-md-2"
+    done.textContent=t.done?"UNDO":"DONE"
+    
+    let edit=document.createElement("button")
+    edit.className="edit-btn btn btn-sm btn-outline-primary me-md-2"
+    edit.textContent="EDIT"
+    
+    let del=document.createElement("button")
+    del.className="delete-btn btn btn-sm btn-outline-danger"
+    
+    actions.appendChild(done)
+    actions.appendChild(edit)
+    actions.appendChild(del)
+    
     if(t.description && t.description.trim()){
       let description=document.createElement("div")
       description.className="task-description"
@@ -2062,7 +2062,7 @@ function renderPinnedTasks(){
     
     // Add pin button
     let pin=document.createElement("button")
-    pin.className="pin-btn"
+    pin.className="pin-btn btn btn-sm btn-outline-secondary ms-2"
     pin.innerHTML=t.pinned?'<span class="material-symbols-outlined filled">star</span>':'<span class="material-symbols-outlined">star</span>'
     pin.title=t.pinned?"Unpin task":"Pin task"
     

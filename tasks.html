@@ -101,51 +101,84 @@
 
 <main>
 
-<section id="taskList" class="tasks"></section>
-
-<section class="add-task">
-<button id="addTask"><span class="nerd-icon">󰐕 </span> ADD TASK</button>
-<div class="csv-controls">
-<button id="deleteAllTasks" style="background: var(--accent); color: white;"><span class="nerd-icon">󰆴 </span> DELETE ALL TASKS</button>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <section id="taskList" class="tasks"></section>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-12">
+      <section class="add-task">
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-3">
+            <button id="addTask" class="btn btn-primary w-100"><span class="nerd-icon">󰐕 </span> ADD TASK</button>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-3">
+            <div class="csv-controls">
+              <button id="deleteAllTasks" class="btn btn-danger w-100"><span class="nerd-icon">󰆴 </span> DELETE ALL TASKS</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
 </div>
-</section>
+
+</main>
 
 <!-- Edit Task Modal -->
 <div id="editModal" class="modal">
 <div class="modal-content">
 <h2>Edit Task</h2>
-<form id="editForm">
-<label for="editName">Task Name:</label>
-<input type="text" id="editName">
+<form id="editForm" class="needs-validation">
+  <div class="mb-3">
+    <label for="editName" class="form-label">Task Name:</label>
+    <input type="text" id="editName" class="form-control" required>
+  </div>
+  
+  <div class="mb-3">
+    <label for="editSubject" class="form-label">Subject:</label>
+    <select id="editSubject" class="form-select">
+      <option>Math</option>
+      <option>Science</option>
+      <option>English</option>
+      <option>History</option>
+      <option>General</option>
+    </select>
+  </div>
+  
+  <div class="mb-3">
+    <label for="editDescription" class="form-label">Description (optional):</label>
+    <textarea id="editDescription" class="form-control" rows="3"></textarea>
+  </div>
+  
+  <div class="mb-3">
+    <label for="editDeadline" class="form-label">Due Date:</label>
+    <div class="deadline-inputs">
+      <input type="date" id="editDeadlineDate" class="form-control" required>
+      <input type="time" id="editDeadlineTime" class="form-control" required>
+    </div>
+  </div>
 
-<label for="editSubject">Subject:</label>
-<select id="editSubject">
-<option>Math</option>
-<option>Science</option>
-<option>English</option>
-<option>History</option>
-<option>General</option>
-</select>
+  <div class="advanced-toggle">
+    <span class="arrow">▶</span>
+    <span>Advanced Options</span>
+  </div>
 
-<label for="editDescription">Description (optional):</label>
-<textarea id="editDescription" rows="3"></textarea>
+  <div class="advanced-section" id="advancedSection">
+    <label for="editStartDate" class="form-label">Start Date:</label>
+    <div class="deadline-inputs">
+      <input type="date" id="editStartDateDate" class="form-control">
+      <input type="time" id="editStartTime" class="form-control">
+    </div>
+  </div>
 
-<label for="editDeadline">Due Date:</label>
-<div class="deadline-inputs">
-<input type="date" id="editDeadlineDate" required>
-<input type="time" id="editDeadlineTime" required>
-</div>
-
-<div class="advanced-toggle">
-<span class="arrow">▶</span>
-<span>Advanced Options</span>
-</div>
-
-<div class="advanced-section" id="advancedSection">
-<label for="editStartDate">Start Date:</label>
-<div class="deadline-inputs">
-<input type="date" id="editStartDateDate">
-<input type="time" id="editStartTime">
+  <div class="modal-actions">
+    <button type="button" id="cancelEdit" class="btn btn-secondary">CANCEL</button>
+    <button type="submit" class="btn btn-primary">SAVE CHANGES</button>
+  </div>
 </div>
 </div>
 
